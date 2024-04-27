@@ -1,0 +1,29 @@
+{% extends 'home.html' %}
+{% load static %}
+
+{% block title %}Computers{% endblock %}
+{% block layoutTitle %}Available Computers{% endblock %}
+{% block computers %}
+
+<!-- Computer Start -->
+{% for computer in computers %}
+{% if computer.is_active %}
+<div class="card text-center col-3 mx-3" style="width: 18rem;">
+    <img src="{% static 'img/computer.png' %}" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">{{computer.name}}</h5>
+        <ul class="list-group">
+            <li class="list-group-item">RAM: {{computer.ram}}</li>
+            <li class="list-group-item">Processor: {{computer.processor}}</li>
+            <li class="list-group-item">Graphics: {{computer.gpu}}</li>
+            <li class="list-group-item">Wifi: {{computer.wifi}}</li>
+            <li class="list-group-item">Price: {{computer.usage_price}} ₹/Hr</li>
+        </ul>
+        <a href="#" class="btn btn-primary">Choose This</a>
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+<!-- Computer Ends -->
+
+{% endblock %}
