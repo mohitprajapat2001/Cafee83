@@ -4,11 +4,12 @@ from users.models import Customer
 
 # Create your models here.
 class Computer(models.Model):
-    name = models.CharField(verbose_name="Computer Name",max_length=30,unique=True)
-    processor = models.CharField(verbose_name="Processor",max_length=30)
-    ram = models.IntegerField(verbose_name="Random Access Memory")
-    gpu = models.CharField(verbose_name="Graphics Card",max_length=30)
+    name = models.CharField(verbose_name="Computer Name",max_length=30,unique=True, null=True, blank=True)
+    processor = models.CharField(verbose_name="Processor",max_length=30, null=True, blank=True)
+    ram = models.IntegerField(verbose_name="Random Access Memory", null=True, blank=True)
+    gpu = models.CharField(verbose_name="Graphics Card",max_length=30, null=True, blank=True)
     wifi = models.BooleanField(verbose_name="WiFi",default=True)
+    usage_price = models.IntegerField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     
     def __str__(self):

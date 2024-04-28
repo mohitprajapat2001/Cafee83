@@ -6,24 +6,27 @@
 {% block content %}
 
 <!-- Computer Start -->
-{% for computer in computers %}
-{% if computer.is_active %}
-<div class="card text-center col-3 mx-3" style="width: 18rem;">
-    <img src="{% static 'img/computer.png' %}" class="card-img-top" alt="...">
-    <div class="card-body">
-        <h5 class="card-title">{{computer.name}}</h5>
-        <ul class="list-group">
-            <li class="list-group-item">RAM: {{computer.ram}}</li>
-            <li class="list-group-item">Processor: {{computer.processor}}</li>
-            <li class="list-group-item">Graphics: {{computer.gpu}}</li>
-            <li class="list-group-item">Wifi: {{computer.wifi}}</li>
-            <li class="list-group-item">Price: {{computer.usage_price}} ₹/Hr</li>
-        </ul>
-        <a href="#" class="btn btn-primary">Choose This</a>
+<div class="row d-flex justify-content-around">
+    {% for computer in computers %}
+    {% if computer.is_active %}
+    <div class="card text-center col-12 mx-1 mb-3" style="width: 15rem;">
+        <img src="{% static 'img/computer.png' %}" class="card-img-top" alt="Computer_Reference">
+        <div class="card-body">
+            <h5 class="card-title">{{ computer.name }}</h5>
+            <ul class="list-group">
+                <li class="list-group-item">RAM: {{ computer.ram }}</li>
+                <li class="list-group-item">Processor: {{ computer.processor }}</li>
+                <li class="list-group-item">Graphics: {{ computer.gpu }}</li>
+                <li class="list-group-item">Wifi: {{ computer.wifi }}</li>
+                <li class="list-group-item">Price: {{ computer.usage_price }} ₹/Hr</li>
+            </ul>
+            <a href="#" class="btn btn-outline-primary mt-3">Choose This</a>
+        </div>
     </div>
+    {% endif %}
+    {% endfor %}
 </div>
-{% endif %}
-{% endfor %}
+
 <!-- Computer Ends -->
 
 {% endblock %}
