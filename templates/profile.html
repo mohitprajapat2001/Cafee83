@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Profile{% endblock %}
 {% block layoutTitle %}User Profile{% endblock %}
@@ -9,15 +10,17 @@
     <div class="col-lg-4">
         <div class="card mb-4">
             <div class="card-body text-center">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+                <!-- <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+                    class="rounded-circle img-fluid" style="width: 150px;"> -->
+                <img src="{{user.profile.url}}" alt="avatar"
                     class="rounded-circle img-fluid" style="width: 150px;">
                 <h5 class="my-3">{{user.username}}</h5>
                 <p class="text-muted mb-4">{{user.address}}</p>
                 <div class="d-flex justify-content-center mb-2">
-                    <button type="button" data-mdb-button-init data-mdb-ripple-init
-                        class="btn btn-primary">Edit Profile</button>
-                    <a href="/logout" data-mdb-button-init data-mdb-ripple-init
-                        class="btn btn-outline-primary ms-1">Log Out</a>
+                    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary"
+                        data-bs-toggle="modal" data-bs-target="#profileEditModal">Edit Profile</button>
+                    <a href="/logout" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary ms-1">Log
+                        Out</a>
                 </div>
             </div>
         </div>
@@ -73,4 +76,113 @@
         </div>
     </div>
 </div>
+
+
+<!-- Edit Profile Modal Start -->
+<!-- Modal -->
+<div class="modal fade" id="profileEditModal" data-bs-backdrop="static" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit User Profile</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container bootstrap snippets bootdey">
+                    <div class="row">
+                        <!-- left column -->
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <img src="{{user.Profile.url}}" alt="avatar" height="128">
+                                <h6>Upload Picture</h6>
+
+                                <input type="file" class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- edit form column -->
+                        <div class="col-md-9 personal-info">
+                            {% if form.errors %}
+                            <div class="alert alert-danger">
+                                {% for field in form %}
+                                {% for error in field.errors %}
+                                <strong>{{ error|escape }}</strong>
+                                {% endfor %}
+                                {% endfor %}
+                                {% for error in form.non_field_errors %}
+                                <strong>{{ error|escape }}</strong>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            <h3>Personal info</h3>
+
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">First name:</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" type="text" value="{{user.first_name}}" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Last name:</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" type="text" value="{{user.last_name}}" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Age:</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" type="number" value="{{user.age}}" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Email:</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" type="text" value="{{user.email}}" required
+                                            readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Phone:</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" type="text" value="{{user.phone}}" required
+                                            readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Address:</label>
+                                    <div class="col-lg-8">
+                                        <div class="ui-select">
+                                            <select id="user_time_zone" class="form-control">
+                                                <option value="Hawaii">(GMT-10:00) Hawaii</option>
+                                                <option value="Alaska">(GMT-09:00) Alaska</option>
+                                                <option value="Pacific Time (US &amp; Canada)">(GMT-08:00) Pacific Time
+                                                    (US &amp; Canada)</option>
+                                                <option value="Arizona">(GMT-07:00) Arizona</option>
+                                                <option value="Mountain Time (US &amp; Canada)">(GMT-07:00) Mountain
+                                                    Time (US &amp; Canada)</option>
+                                                <option value="Central Time (US &amp; Canada)" selected="selected">
+                                                    (GMT-06:00) Central Time (US &amp; Canada)</option>
+                                                <option value="Eastern Time (US &amp; Canada)">(GMT-05:00) Eastern Time
+                                                    (US &amp; Canada)</option>
+                                                <option value="Indiana (East)">(GMT-05:00) Indiana (East)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Edit Profile Modal End -->
 {% endblock %}
