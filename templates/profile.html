@@ -88,13 +88,13 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Edit User Profile</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <form class="modal-body">
                 <div class="container bootstrap snippets bootdey">
                     <div class="row">
                         <!-- left column -->
                         <div class="col-md-3">
                             <div class="text-center">
-                                <img src="{{user.Profile.url}}" alt="avatar" height="128">
+                                <img src="{{user.profile.url}}" alt="avatar" height="128">
                                 <h6>Upload Picture</h6>
 
                                 <input type="file" class="form-control">
@@ -117,7 +117,12 @@
                             {% endif %}
                             <h3>Personal info</h3>
 
-                            <form class="form-horizontal" role="form">
+                            <div class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <div class="col-lg-8">
+                                        <input class="form-control" type="hidden" value="{{user.id}}" required>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">First name:</label>
                                     <div class="col-lg-8">
@@ -171,12 +176,12 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <hr>
-            </div>
+            </form>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <!-- <button type="button" class="btn btn-primary">Save changes</button> -->

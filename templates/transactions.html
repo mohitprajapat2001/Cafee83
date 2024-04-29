@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Transaction{% endblock %}
+{% block layoutTitle %}Transactions{% endblock %}
+
+{% block content %}
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Transaction ID</th>
+            <th scope="col">Customer</th>
+            <th scope="col">Computer</th>
+            <th scope="col">Transaction Date</th>
+            <th scope="col">Transaction Amount</th>
+        </tr>
+    </thead>
+    <tbody class="text-capitalize">
+        {% for transaction in transactions %}
+        {% if request.user.is_staff %}
+        <tr>
+            <th scope="row">{{transaction.id}}</th>
+            <td>{{transaction.customer.username}}</td>
+            <td>{{transaction.computer.name}}</td>
+            <td>{{transaction.transaction_date}}</td>
+            <td>{{transaction.transaction_amount}}</td>
+        </tr>
+        {% else %}
+        {% if transaction.customer.id == request.user.id %}
+        <tr>
+            <th scope="row">{{transaction.id}}</th>
+            <td>{{transaction.customer.username}}</td>
+            <td>{{transaction.computer.name}}</td>
+            <td>{{transaction.transaction_date}}</td>
+            <td>{{transaction.transaction_amount}}</td>
+        </tr>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

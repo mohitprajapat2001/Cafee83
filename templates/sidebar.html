@@ -6,8 +6,12 @@
             <a class="btn btn-outline-primary {% if request.path == '/dashboard/' %}active{% endif %} my-1" href="/dashboard" role="button">Dashboard</a>
             <a class="btn btn-outline-primary {% if request.path == '/computers/' %}active{% endif %} my-1" href="/computers" role="button">Computers</a>
             <a class="btn btn-outline-primary {% if request.path == '/transactions/' %}active{% endif %} my-1" href="/transactions" role="button">Tranactions</a>
+            {% if request.user.is_staff %}
             <a class="btn btn-outline-primary {% if request.path == '/users/' %}active{% endif %} my-1" href="/users" role="button">Users</a>
-            <a class="btn btn-outline-primary {% if request.path == '/staff/' %}active{% endif %} my-1" href="/staff" role="button">staff</a>
+            {% if request.user.is_superuser %}
+            <a class="btn btn-outline-primary {% if request.path == '/staff/' %}active{% endif %} my-1" href="/staff" role="button">Status Status</a>
+            {% endif %}
+            {% endif %}
         </div>
     </div>
 </nav>

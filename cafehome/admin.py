@@ -22,13 +22,13 @@ class ComputerAdmin(admin.ModelAdmin):
 
 @admin.register(Transaction)
 class TransactionAdmin(admin.ModelAdmin):
-    list_display= ["customer_name", "transaction_date", "transaction_id"]
+    list_display= ["customer", "transaction_date", "transaction_id"]
     fieldsets= [
         ("Customer Details", {
-            "fields": ["customer_id","customer_name"]
+            "fields": ["customer", "customer_name"]
         }),
         ("Computer Details", {
-            "fields": ["computer_id"]
+            "fields": ["computer"]
         }),
         ("Transaction Details", {
             "fields": ["transaction_id","transaction_amount", "transaction_date"]

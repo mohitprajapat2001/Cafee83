@@ -2,7 +2,14 @@
 {% load static %}
 
 {% block title %}Computers{% endblock %}
-{% block layoutTitle %}Available Computers{% endblock %}
+
+{% block layoutTitle %}
+Available Computer
+{% if request.user.is_staff %}
+<a href="/addcomputers" class="btn btn-primary float-end" type="button">Add New Computer</a>
+{% endif %}
+{% endblock %}
+
 {% block content %}
 
 <!-- Computer Start -->
@@ -20,7 +27,13 @@
                 <li class="list-group-item">Wifi: {{ computer.wifi }}</li>
                 <li class="list-group-item">Price: {{ computer.usage_price }} ₹/Hr</li>
             </ul>
+            {% if request.user.is_authenticated %}
             <a href="#" class="btn btn-outline-primary mt-3">Choose This</a>
+            {% else %}
+            <div class="alert alert-warning mt-3" role="alert">
+                Not Authorised
+            </div>
+            {% endif %}
         </div>
     </div>
     {% endif %}

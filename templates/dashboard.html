@@ -3,12 +3,49 @@
 {% block title %}Dashboard{% endblock %}
 {% block layoutTitle %}Dashboard{% endblock %}
 {% block style %}
-<link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.3/components/error-404s/error-404-1/assets/css/error-404-1.css">
+<link rel="stylesheet"
+    href="https://unpkg.com/bs-brain@2.0.3/components/error-404s/error-404-1/assets/css/error-404-1.css">
 {% endblock %}
 
 {% block content %}
-{% if user.is_authenticated  %}
-{{request.user}}
+{% if user.is_authenticated %}
+{{name}}
+<section>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6 col-xl-4">
+                <div class="card text-black">
+                    <i class="fab fa-apple fa-lg pt-3 pb-1 px-3"></i>
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/3.webp"
+                        class="card-img-top" alt="Apple Computer" />
+                    <div class="card-body">
+                        <div class="text-center">
+                            <h5 class="card-title">{{transaction.computer}}</h5>
+                            <p class="text-muted mb-4">{{transaction.computer.gpu}}</p>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-between">
+                                <span>Ram</span><span> {{transaction.computer.ram}}GB</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>Processor</span><span>{{transaction.computer.processor}}</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>Amount</span><span>${{transaction.transaction_amount}}</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between total font-weight-bold mt-4 text-capitalize">
+                            <span>Username</span>
+                            <span>
+                                <strong>{{transaction.customer_name}}</strong>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% else %}
 <section class="py-3 py-md-5 min-vh-100 d-flex justify-content-center align-items-center">
     <div class="container">
