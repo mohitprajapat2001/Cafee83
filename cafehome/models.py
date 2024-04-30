@@ -72,14 +72,14 @@ class Computer(models.Model):
 
 class Transaction(models.Model):
     customer_name = models.CharField(verbose_name="Customer Name", max_length=100)
-    customer = models.OneToOneField(Customer, on_delete=models.CASCADE)
-    computer = models.OneToOneField(Computer, on_delete=models.CASCADE)
-    transaction_id = models.IntegerField(verbose_name="Transaction Id")
-    transaction_date = models.DateField(verbose_name="Transaction Date")
-    transaction_amount = models.IntegerField(verbose_name="Transaction Amount")
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    computer = models.ForeignKey(Computer, on_delete=models.CASCADE)
+    transaction_id = models.CharField(verbose_name="Transaction Id")
+    transaction_date = models.DateTimeField(verbose_name="Transaction Date")
+    transaction_amount = models.FloatField(verbose_name="Transaction Amount")
 
     def __str__(self):
-        return self.customer_name + str(self.transaction_id)
+        return self.customer_name + " " + str(self.transaction_id)
 
     class Meta:
         verbose_name = "Transactions Detail"

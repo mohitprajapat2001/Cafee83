@@ -1,17 +1,18 @@
 from django.http import HttpRequest
 from django.shortcuts import render, HttpResponse, redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import *
 from .models import Transaction, Computer, Customer
 from .forms import AddComputer
 
 
-class Home(TemplateView):
+class Home(TemplateView, LoginRequiredMixin):
     template_name = "dashboard.html"
 
     def get_context_data(self):
         if self.request.user.is_authenticated:
-            transaction = Transaction.objects.get(customer_id=self.request.user.id)
-            context = {"transaction": transaction}
+            transactions = Transaction.objects.filter(customer_id=self.request.user.id)
+            context = {"transactions": transactions}
             return context
         return super().get_context_data()
 

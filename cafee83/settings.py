@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "schema_graph",
     "cafehome",
     "users",
+    "payments"
 ]
 
 MIDDLEWARE = [

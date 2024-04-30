@@ -5,7 +5,7 @@ from django.contrib.auth.admin import UserAdmin
 # Register your models here.
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ['id', "username", "is_staff", "is_active"]
+    list_display = ["username", "is_staff", "is_active"]
     fieldsets = [
         ("Customer Details", {
             "fields": ["first_name", "last_name", "username", "email", "password", "age", "address", "phone"]
@@ -22,3 +22,4 @@ class CustomerAdmin(admin.ModelAdmin):
     ]
     search_fields= ["username"]
     list_filter=["is_staff", "is_active", "is_superuser"]
+    ordering = ["username"]

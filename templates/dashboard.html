@@ -10,10 +10,12 @@
 {% block content %}
 {% if user.is_authenticated %}
 {{name}}
-<section>
-    <div class="container py-5">
+{% if transactions %}
+<section class="row d-flex justify-content-around">
+    {% for transaction in transactions %}
+    <div class="col-6 my-3">
         <div class="row justify-content-center">
-            <div class="col-md-8 col-lg-6 col-xl-4">
+            <div class="">
                 <div class="card text-black">
                     <i class="fab fa-apple fa-lg pt-3 pb-1 px-3"></i>
                     <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/3.webp"
@@ -45,7 +47,14 @@
             </div>
         </div>
     </div>
+    {% endfor %}
 </section>
+{% else %}
+<div class="alert alert-primary text-center" role="alert">
+    <h1>No Active PC Sessions</h1>
+    <a class="btn btn-primary" href="/computers" role="button">Select Computer</a>
+</div>
+{% endif %}
 {% else %}
 <section class="py-3 py-md-5 min-vh-100 d-flex justify-content-center align-items-center">
     <div class="container">

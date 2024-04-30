@@ -16,7 +16,7 @@ Available Computer
 <div class="row d-flex justify-content-around">
     {% for computer in computers %}
     {% if computer.is_active %}
-    <div class="card text-center col-12 mx-1 mb-3" style="width: 15rem;">
+    <div class="card text-center col-6 my-3">
         <img src="{% static 'img/computer.png' %}" class="card-img-top" alt="Computer_Reference">
         <div class="card-body">
             <h5 class="card-title">{{ computer.name }}</h5>
@@ -28,7 +28,7 @@ Available Computer
                 <li class="list-group-item">Price: {{ computer.usage_price }} ₹/Hr</li>
             </ul>
             {% if request.user.is_authenticated %}
-            <a href="#" class="btn btn-outline-primary mt-3">Choose This</a>
+            <a href="/paypal/payments/{{computer.id}}" class="btn btn-outline-primary mt-3">Choose This</a>
             {% else %}
             <div class="alert alert-warning mt-3" role="alert">
                 Not Authorised
