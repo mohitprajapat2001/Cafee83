@@ -8,7 +8,7 @@ from .models import Customer
 # Create your views here.
 
 class Register(FormView):
-    template_name = "register.html"
+    template_name = "html/registration/register.html"
     form_class = CustomerForm
     success_url = '/login'
     
@@ -25,7 +25,7 @@ class Register(FormView):
         return super().form_invalid(form)
         
 class Login(FormView):
-    template_name = "login.html"
+    template_name = "html/registration/login.html"
     form_class = LoginForm
     success_url = '/dashboard'
     

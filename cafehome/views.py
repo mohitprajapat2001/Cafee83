@@ -7,7 +7,7 @@ from .forms import AddComputer
 
 
 class Home(TemplateView, LoginRequiredMixin):
-    template_name = "dashboard.html"
+    template_name = "html/cafeehtml/dashboard.html"
 
     def get_context_data(self):
         if self.request.user.is_authenticated:
@@ -18,7 +18,7 @@ class Home(TemplateView, LoginRequiredMixin):
 
 
 class Profile(TemplateView):
-    template_name = "profile.html"
+    template_name = "html/cafeehtml/profile.html"
 
     def get_context_data(self):
         context = {"user": self.request.user}
@@ -26,12 +26,12 @@ class Profile(TemplateView):
 
 
 class Computer(ListView):
-    template_name = "computer.html"
+    template_name = "html/cafeehtml/computer.html"
     model = Computer
     context_object_name = "computers"
     
 class AddComputer(FormView):
-    template_name = "addcomputer.html"
+    template_name = "html/cafeehtml/addcomputer.html"
     form_class = AddComputer
     success_url = "/computers"
     
@@ -44,19 +44,19 @@ class AddComputer(FormView):
 
 
 class Transactions(ListView):
-    template_name = "transactions.html"
+    template_name = "html/cafeehtml/transactions.html"
     model = Transaction
     context_object_name = "transactions"
 
 
 class Users(ListView):
-    template_name = "users.html"
+    template_name = "html/cafeehtml/users.html"
     model = Customer
     context_object_name = "customers"
 
 
 class Staff(ListView):
-    template_name = "staff.html"
+    template_name = "html/cafeehtml/staff.html"
     model = Customer
     context_object_name = "customers"
 
