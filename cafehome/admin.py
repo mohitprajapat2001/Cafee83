@@ -25,7 +25,7 @@ class TransactionAdmin(admin.ModelAdmin):
     list_display = ["customer", "transaction_date", "transaction_id"]
     fieldsets = [
         ("Customer Details", {
-            "fields": ["customer", "customer_name"]
+            "fields": ["customer", "payer_username"]
         }),
         ("Computer Details", {
             "fields": ["computer"]
@@ -35,7 +35,7 @@ class TransactionAdmin(admin.ModelAdmin):
         }),
     ]
     ordering = ["transaction_id"]
-    search_fields = ["customer_name", "transaction_id"]
+    search_fields = ["payer_username", "transaction_id"]
     list_filter = ["customer__username", "transaction_date"] 
     
 
