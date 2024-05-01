@@ -7,7 +7,7 @@
     <div class="container-fluid">
 
         <!-- Brand -->
-        <a class="navbar-brand font-monospace fs-2 fw-bold" href="/dashboard">
+        <a class="navbar-brand font-monospace fs-2 fw-bold" href="/home">
             Cafee'83
         </a>
         <!-- Search form -->
@@ -22,13 +22,14 @@
 
             <!-- Icon -->
             <li class="nav-item">
-                <a class="nav-link me-3 me-lg-0 {% if request.path == '/dashboard/' %}active{% endif %}" href="/home">
+                <a class="nav-link me-3 me-lg-0 {% if request.path == '/home/' %}active{% endif %}"
+                    href="/home">
                     <i class="fas fa-home"></i>
                 </a>
             </li>
             <!-- Icon -->
             <li class="nav-item me-3 me-lg-0">
-                <a class="nav-link {% if request.path == '/info/' %}active{% endif %}" href="/info">
+                <a class="nav-link {% if request.path == '/home/info/' %}active{% endif %}" href="/home/info">
                     <i class="fas fa-circle-info"></i>
                 </a>
             </li>
@@ -59,12 +60,12 @@
                         height="22" alt="" loading="lazy" />
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="avtarDropDown">
-                    <li><a class="dropdown-item" href="/profile">My profile</a></li>
-                    <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                    <li><a class="dropdown-item" href="/home/profile">My profile</a></li>
+                    <li><a class="dropdown-item" href="/accounts/logout">Logout</a></li>
                 </ul>
                 {% else %}
             <li class="nav-item dropdown">
-                <a class="btn btn-primary" href="/login" role="button">Login</a>
+                <a class="btn btn-primary" href="/accounts/login" role="button">Login</a>
             </li>
             {% endif %}
             </li>

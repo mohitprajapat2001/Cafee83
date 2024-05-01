@@ -33,7 +33,7 @@ class Computer(ListView):
 class AddComputer(FormView):
     template_name = "html/cafeehtml/addcomputer.html"
     form_class = AddComputer
-    success_url = "/computers"
+    success_url = "/home/computers"
     
     def form_valid(self, form):
         form.save()        

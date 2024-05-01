@@ -20,7 +20,7 @@
         {% if request.user.is_staff %}
         <tr>
             <th scope="row">{{transaction.id}}</th>
-            <td>{{transaction.customer.username}}</td>
+            <td>{{transaction.customer_name}}</td>
             <td>{{transaction.computer.name}}</td>
             <td>{{transaction.transaction_date}}</td>
             <td>{{transaction.transaction_amount}}</td>
@@ -29,7 +29,7 @@
         {% if transaction.customer.id == request.user.id %}
         <tr>
             <th scope="row">{{transaction.id}}</th>
-            <td>{{transaction.customer.username}}</td>
+            <td>{{transaction.customer_name}}</td>
             <td>{{transaction.computer.name}}</td>
             <td>{{transaction.transaction_date}}</td>
             <td>{{transaction.transaction_amount}}</td>

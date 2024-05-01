@@ -82,12 +82,16 @@ WSGI_APPLICATION = "cafee83.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
         "NAME": "cafe83",
+        "ENGINE": "django.db.backends.postgresql",
         "USER": "postgres",
         "PASSWORD": "1234",
         "HOST": "localhost"
     },
+    'sqlite': {
+        'NAME': 'sqlite',
+        'ENGINE': 'django.db.backends.sqlite3',
+    }
 }
 
 

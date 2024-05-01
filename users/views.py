@@ -10,7 +10,7 @@ from .models import Customer
 class Register(FormView):
     template_name = "html/registration/register.html"
     form_class = CustomerForm
-    success_url = '/login'
+    success_url = '/home'
     
     def form_valid(self, form):
         user = form.save(commit=False) 
@@ -27,7 +27,7 @@ class Register(FormView):
 class Login(FormView):
     template_name = "html/registration/login.html"
     form_class = LoginForm
-    success_url = '/dashboard'
+    success_url = '/home'
     
     def form_valid(self, form):
         user = Customer.objects.get(username=form.cleaned_data["username"])
@@ -48,4 +48,4 @@ class Logout(View):
     def get(self, request):
         print("logout")
         logout(request)
-        return redirect("/dashboard")
+        return redirect("/home")

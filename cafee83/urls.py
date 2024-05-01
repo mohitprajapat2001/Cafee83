@@ -23,8 +23,8 @@ from django.conf import settings
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("cafehome.urls")),
-    path("", include("users.urls")),
+    path("home/", include("cafehome.urls")),
+    path("accounts/", include("users.urls")),
     path("paypal/", include("payments.urls")),
     path("schema", Schema.as_view())
 ]
