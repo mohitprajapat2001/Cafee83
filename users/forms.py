@@ -12,6 +12,7 @@ class CustomerForm(ModelForm):
                 attrs={"class": "form-control", "required": "True"}
             )
 
+
 class LoginForm(Form):
     username = CharField(
         required=True, max_length=30, widget=TextInput(attrs={"class": "form-control"})
