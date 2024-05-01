@@ -2,7 +2,7 @@ from django.forms import *
 from .models import Computer
 
 
-class AddComputer(ModelForm):
+class ComputerForm(ModelForm):
 
     class Meta:
         model = Computer

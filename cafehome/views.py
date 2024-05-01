@@ -1,9 +1,8 @@
-from django.http import HttpRequest
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import *
 from .models import Transaction, Computer, Customer
-from .forms import AddComputer
+from .forms import ComputerForm
 
 
 class Home(TemplateView, LoginRequiredMixin):
@@ -29,16 +28,17 @@ class Computer(ListView):
     template_name = "html/cafeehtml/computer.html"
     model = Computer
     context_object_name = "computers"
-    
-class AddComputer(FormView):
-    template_name = "html/cafeehtml/addcomputer.html"
-    form_class = AddComputer
+
+
+class ComputerForm(FormView):
+    template_name = "html/cafeehtml/computerform.html"
+    form_class = ComputerForm
     success_url = "/home/computers"
-    
+
     def form_valid(self, form):
-        form.save()        
+        form.save()
         return super().form_valid(form)
-    
+
     def form_invalid(self, form):
         return super().form_invalid(form)
 
