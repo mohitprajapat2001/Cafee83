@@ -12,14 +12,14 @@
             <div class="card-body text-center">
                 <!-- <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
                     class="rounded-circle img-fluid" style="width: 150px;"> -->
-                <img src="{{user.profile.url}}" alt="avatar"
-                    class="rounded-circle img-fluid" style="width: 150px;">
+                <img src="{{user.profile.url}}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
                 <h5 class="my-3">{{user.username}}</h5>
                 <p class="text-muted mb-4">{{user.address}}</p>
                 <div class="d-flex justify-content-center mb-2">
                     <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary"
                         data-bs-toggle="modal" data-bs-target="#profileEditModal">Edit Profile</button>
-                    <a href="/accounts/logout" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary ms-1">Log
+                    <a href="/accounts/logout" data-mdb-button-init data-mdb-ripple-init
+                        class="btn btn-outline-primary ms-1">Log
                         Out</a>
                 </div>
             </div>
@@ -151,29 +151,13 @@
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Phone:</label>
                                     <div class="col-lg-8">
-                                        <input class="form-control" type="text" value="{{user.phone}}" required
-                                            readonly>
+                                        <input class="form-control" type="text" value="{{user.phone}}" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Address:</label>
                                     <div class="col-lg-8">
-                                        <div class="ui-select">
-                                            <select id="user_time_zone" class="form-control">
-                                                <option value="Hawaii">(GMT-10:00) Hawaii</option>
-                                                <option value="Alaska">(GMT-09:00) Alaska</option>
-                                                <option value="Pacific Time (US &amp; Canada)">(GMT-08:00) Pacific Time
-                                                    (US &amp; Canada)</option>
-                                                <option value="Arizona">(GMT-07:00) Arizona</option>
-                                                <option value="Mountain Time (US &amp; Canada)">(GMT-07:00) Mountain
-                                                    Time (US &amp; Canada)</option>
-                                                <option value="Central Time (US &amp; Canada)" selected="selected">
-                                                    (GMT-06:00) Central Time (US &amp; Canada)</option>
-                                                <option value="Eastern Time (US &amp; Canada)">(GMT-05:00) Eastern Time
-                                                    (US &amp; Canada)</option>
-                                                <option value="Indiana (East)">(GMT-05:00) Indiana (East)</option>
-                                            </select>
-                                        </div>
+                                        <input class="form-control" type="text" value="{{user.address}}" required>
                                     </div>
                                 </div>
                             </div>

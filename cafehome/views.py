@@ -19,10 +19,6 @@ class Home(TemplateView, LoginRequiredMixin):
 class Profile(TemplateView):
     template_name = "html/cafeehtml/profile.html"
 
-    def get_context_data(self):
-        context = {"user": self.request.user}
-        return context
-
 
 class Computer(ListView):
     template_name = "html/cafeehtml/computer.html"
