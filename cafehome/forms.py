@@ -8,14 +8,14 @@ class ComputerForm(ModelForm):
         model = Computer
 
         fields = ["name", "processor", "ram", "gpu", "usage_price"]
-        widgets = {
-            "name": TextInput(
-                attrs={"class": "form-control", "required": "True"},
-            ),
-            "processor": Select(attrs={"class": "form-control", "required": "True"}),
-            "ram": Select(attrs={"class": "form-control", "required": "True"}),
-            "gpu": Select(attrs={"class": "form-control", "required": "True"}),
-            "usage_price": NumberInput(
+        widgets = {}
+        for field in fields:
+            if field == "name":
+                input_class = TextInput
+            elif field == "usage_price":
+                input_class = NumberInput
+            else:
+                input_class = Select
+            widgets[field] = input_class(
                 attrs={"class": "form-control", "required": "True"}
-            ),
-        }
+            )

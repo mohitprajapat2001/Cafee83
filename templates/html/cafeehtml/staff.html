@@ -32,7 +32,7 @@
             <td>{{customer.is_active}}</td>
             <td class="staffStatus">{{customer.is_staff}}</td>
             <td>
-                <form method="post" action="/togglestatusstaff/">
+                <form method="post" action="/home/togglestatusstaff/">
                     {% csrf_token %}
                     <input type="hidden" name="customer_id" value="{{ customer.id }}">
                     <button type="submit" class="btn btn-primary">Toggle Status</button>
