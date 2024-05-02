@@ -10,7 +10,7 @@ class Home(TemplateView, LoginRequiredMixin):
 
     def get_context_data(self):
         if self.request.user.is_authenticated:
-            transactions = Transaction.objects.filter(customer_id=self.request.user.id)
+            transactions = Transaction.objects.filter(customer_details=self.request.user.id)
             context = {"transactions": transactions}
             return context
         return super().get_context_data()

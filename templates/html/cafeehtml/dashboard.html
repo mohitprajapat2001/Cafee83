@@ -9,7 +9,6 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-{{name}}
 {% if transactions %}
 <section class="row d-flex justify-content-around">
     {% for transaction in transactions %}
@@ -22,12 +21,12 @@
                         class="card-img-top" alt="Apple Computer" />
                     <div class="card-body">
                         <div class="text-center">
-                            <h5 class="card-title">{{transaction.computer}}</h5>
-                            <p class="text-muted mb-4">{{transaction.computer.gpu}}</p>
+                            <h5 class="card-title">{{transaction.computer_details}}</h5>
+                            <p class="text-muted mb-4">{{transaction.computer_details.gpu}}</p>
                         </div>
                         <div>
                             <div class="d-flex justify-content-between">
-                                <span>Ram</span><span> {{transaction.computer.ram}}GB</span>
+                                <span>Ram</span><span> {{transaction.computer_details.ram}}GB</span>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <span>Processor</span><span>{{transaction.computer.processor}}</span>
@@ -39,7 +38,7 @@
                         <div class="d-flex justify-content-between total font-weight-bold mt-4 text-capitalize">
                             <span>Username</span>
                             <span>
-                                <strong>{{transaction.customer_name}}</strong>
+                                <strong>{{transaction.payer_name}}</strong>
                             </span>
                         </div>
                     </div>

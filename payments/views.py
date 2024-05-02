@@ -24,11 +24,10 @@ class OrderCompleteView(View):
         print(order_details)
         order = order_details["order_details"]["purchase_units"][0]
         Transaction.objects.create(
-            customer_name=order["shipping"]["name"]["full_name"],
-            customer=request.user,
-            computer=Computer.objects.get(id=self.kwargs.get("computer_id")),
+            payer_username=order["shipping"]["name"]["full_name"],
+            customer_details=request.user,
+            computer_details=Computer.objects.get(id=self.kwargs.get("computer_id")),
             transaction_id=order_details["order_details"]["id"],
-            transaction_date=order_details["order_details"]["create_time"],
             transaction_amount=order["amount"]["value"],
         )
 

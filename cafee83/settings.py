@@ -87,10 +87,6 @@ DATABASES = {
         "USER": "postgres",
         "PASSWORD": "1234",
         "HOST": "localhost"
-    },
-    'sqlite': {
-        'NAME': 'sqlite',
-        'ENGINE': 'django.db.backends.sqlite3',
     }
 }
 

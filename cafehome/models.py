@@ -40,11 +40,11 @@ class Computer(models.Model):
 
 class Transaction(models.Model):
     payer_username = models.CharField(verbose_name="Payer Name", max_length=100)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    computer = models.ForeignKey(Computer, on_delete=models.CASCADE)
+    customer_details = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    computer_details = models.ForeignKey(Computer, on_delete=models.CASCADE)
     transaction_id = models.CharField(verbose_name="Transaction Id")
-    transaction_date = models.DateTimeField(verbose_name="Transaction Date")
     transaction_amount = models.FloatField(verbose_name="Transaction Amount")
+    transaction_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.payer_username + " " + str(self.transaction_id)
