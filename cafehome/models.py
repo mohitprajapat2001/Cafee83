@@ -9,7 +9,7 @@ class Computer(models.Model):
         verbose_name="Computer Name", max_length=100, unique=True, null=True, blank=True
     )
     processor = models.CharField(
-        default="Intel Core i5",
+        default="INTEL_I5",
         verbose_name="Processor",
         max_length=100,
         null=True,
