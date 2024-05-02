@@ -1,4 +1,6 @@
 from django.views.generic import *
+
+# Import Required ClassView
 from django.http import JsonResponse
 from cafehome.models import Transaction, Computer
 import json
@@ -16,7 +18,6 @@ class Payments(TemplateView):
 class OrderCompleteView(View):
     def post(self, request, *args, **kwargs):
         order_details = json.loads(request.body)
-        print(order_details)
         order = order_details["order_details"]["purchase_units"][0]
         Transaction.objects.create(
             payer_username=order["shipping"]["name"]["full_name"],

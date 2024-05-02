@@ -1,32 +1,22 @@
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.views.generic import *
+
+# Import Required ClassView
 from django.contrib.auth import authenticate, login, logout
 from .forms import CustomerForm, LoginForm
 from .models import Customer
-
-# Create your views here.
 
 
 class Register(FormView):
     template_name = "html/registration/register.html"
     form_class = CustomerForm
-    success_url = "/home"
+    success_url = "/accounts/login"
 
     def form_valid(self, form):
         user = form.save(commit=False)
         user.set_password(form.cleaned_data["password"])
         user.save()
-        user = authenticate(
-            username=form.cleaned_data["username"],
-            password=form.cleaned_data["password"],
-        )
-        if user is not None:
-            login(self.request, user)
         return super().form_valid(form)
-
-    def form_invalid(self, form):
-        return super().form_invalid(form)
 
 
 class Login(FormView):
@@ -48,13 +38,9 @@ class Login(FormView):
             form.add_error(None, "Incorrect username or password.")
             return super().form_invalid(form)
 
-    def form_invalid(self, form):
-        return super().form_invalid(form)
-
 
 class Logout(View):
 
     def get(self, request):
-        print("logout")
         logout(request)
         return redirect("/home")

@@ -12,8 +12,6 @@ class Computer(models.Model):
         default="INTEL_I5",
         verbose_name="Processor",
         max_length=100,
-        null=True,
-        blank=True,
         choices=PROCESSOR_CHOICES,
     )
     ram = models.IntegerField(

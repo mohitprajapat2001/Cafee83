@@ -1,5 +1,6 @@
 from django.shortcuts import redirect
 from django.views.generic import *
+# Import Required ClassView
 from .models import Transaction, Computer, Customer
 from .forms import ComputerForm
 
@@ -30,10 +31,6 @@ class ComputerForm(FormView):
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
-
-    def form_invalid(self, form):
-        return super().form_invalid(form)
-
 
 class Transactions(ListView):
     template_name = "html/cafeehtml/transactions.html"

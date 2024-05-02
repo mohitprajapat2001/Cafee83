@@ -8,7 +8,7 @@ class CustomerAdmin(admin.ModelAdmin):
     list_display = ["username", "is_staff", "is_active"]
     fieldsets = [
         ("Customer Details", {
-            "fields": ["first_name", "last_name", "username", "email", "password", "age", "address", "phone"]
+            "fields": ["profile", "first_name", "last_name", "username", "email", "password", "age", "address", "phone"]
         }),
         ("Status Details", {
             "fields": ["is_staff", "is_superuser", "is_active"]
