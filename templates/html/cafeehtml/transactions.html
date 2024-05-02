@@ -26,11 +26,11 @@
             <td>{{transaction.transaction_amount}}</td>
         </tr>
         {% else %}
-        {% if transaction.customer.id == request.user.id %}
+        {% if transaction.customer_details.id == request.user.id %}
         <tr>
             <th scope="row">{{transaction.id}}</th>
-            <td>{{transaction.customer_name}}</td>
-            <td>{{transaction.computer.name}}</td>
+            <td>{{transaction.payer_username}}</td>
+            <td>{{transaction.computer_details.name}}</td>
             <td>{{transaction.transaction_date}}</td>
             <td>{{transaction.transaction_amount}}</td>
         </tr>
