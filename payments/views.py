@@ -1,11 +1,7 @@
-from django.db.models.query import QuerySet
-from django.shortcuts import render, HttpResponse
 from django.views.generic import *
 from django.http import JsonResponse
 from cafehome.models import Transaction, Computer
 import json
-
-# Create your views here.
 
 
 class Payments(TemplateView):
@@ -18,7 +14,6 @@ class Payments(TemplateView):
 
 
 class OrderCompleteView(View):
-
     def post(self, request, *args, **kwargs):
         order_details = json.loads(request.body)
         print(order_details)

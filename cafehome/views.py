@@ -9,8 +9,7 @@ class Home(ListView):
     context_object_name = "transactions"
 
     def get_queryset(self):
-        if self.request.user.is_authenticated:
-            return self.request.user.transaction_set.all()
+        return self.request.user.transaction_set.all()
 
 
 class Profile(TemplateView):
