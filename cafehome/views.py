@@ -1,8 +1,12 @@
+from django.http import HttpResponse
 from django.shortcuts import redirect
+from django.urls import reverse_lazy
 from django.views.generic import *
+
 # Import Required ClassView
 from .models import Transaction, Computer, Customer
 from .forms import ComputerForm
+from users.forms import UserUpdateForm
 
 
 class Home(ListView):
@@ -13,8 +17,13 @@ class Home(ListView):
         return self.request.user.transaction_set.all()
 
 
-class Profile(TemplateView):
-    template_name = "html/cafeehtml/profile.html"
+class Profile(UpdateView):
+    model = Customer
+    form_class = UserUpdateForm
+    template_name = "html/cafeehtml/Profile.html"
+    
+    def get_success_url(self):
+        return f"/home/profile/{self.request.user.pk}"
 
 
 class Computer(ListView):
@@ -31,6 +40,7 @@ class ComputerForm(FormView):
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
+
 
 class Transactions(ListView):
     template_name = "html/cafeehtml/transactions.html"

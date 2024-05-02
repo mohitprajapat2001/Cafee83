@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "schema_graph",
-    "phonenumber_field",
     "cafehome",
     "users",
     "payments"
