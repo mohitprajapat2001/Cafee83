@@ -1,19 +1,16 @@
 from django.shortcuts import redirect
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import *
 from .models import Transaction, Computer, Customer
 from .forms import ComputerForm
 
 
-class Home(TemplateView, LoginRequiredMixin):
+class Home(ListView):
     template_name = "html/cafeehtml/dashboard.html"
+    context_object_name = "transactions"
 
-    def get_context_data(self):
+    def get_queryset(self):
         if self.request.user.is_authenticated:
-            transactions = Transaction.objects.filter(customer_details=self.request.user.id)
-            context = {"transactions": transactions}
-            return context
-        return super().get_context_data()
+            return self.request.user.transaction_set.all()
 
 
 class Profile(TemplateView):
