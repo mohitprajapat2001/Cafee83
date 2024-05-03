@@ -1,6 +1,5 @@
-from django.views.generic import *
-
-# Import Required ClassView
+# -*- coding: utf-8 -*-
+from django.views.generic import View, TemplateView
 from django.http import JsonResponse
 from cafehome.models import Transaction, Computer
 import json

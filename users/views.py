@@ -1,7 +1,6 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import redirect
-from django.views.generic import *
-
-# Import Required ClassView
+from django.views.generic import View, FormView
 from django.contrib.auth import authenticate, login, logout
 from .forms import CustomerForm, LoginForm
 from .models import Customer

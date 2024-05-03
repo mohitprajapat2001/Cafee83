@@ -1,9 +1,6 @@
-from django.http import HttpResponse
+# -*- coding: utf-8 -*-
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
-from django.views.generic import *
-
-# Import Required ClassView
+from django.views.generic import View, ListView, FormView, UpdateView
 from .models import Transaction, Computer, Customer
 from .forms import ComputerForm
 from users.forms import UserUpdateForm
@@ -21,7 +18,7 @@ class Profile(UpdateView):
     model = Customer
     form_class = UserUpdateForm
     template_name = "html/cafeehtml/Profile.html"
-    
+
     def get_success_url(self):
         return f"/home/profile/{self.request.user.pk}"
 

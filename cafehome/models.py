@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from users.models import Customer
-from .choices import *
+from .choices import GPU_CHOICES, PROCESSOR_CHOICES, RAM_CHOICES
 
 
 # Create your models here.

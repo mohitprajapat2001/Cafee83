@@ -1,4 +1,5 @@
-from django.forms import *
+# -*- coding: utf-8 -*-
+from django.forms import ModelForm, TextInput, NumberInput, Select
 from .models import Computer
 
 

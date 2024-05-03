@@ -1,0 +1,19 @@
+default_language_version:
+    python: python3.10.9
+
+repos:
+  - repo: https://github.com/ambv/black
+    rev: 24.3.0
+    hooks:
+        - id: black
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+        - id: fix-encoding-pragma
+        - id: trailing-whitespace
+        - id: debug-statements
+        - id: name-tests-test
+        - id: check-json
+        - id: check-merge-conflict
+        - id: check-yaml

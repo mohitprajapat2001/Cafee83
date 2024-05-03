@@ -1,4 +1,13 @@
-from django.forms import *
+# -*- coding: utf-8 -*-
+from django.forms import (
+    Form,
+    ModelForm,
+    TextInput,
+    CharField,
+    PasswordInput,
+    FileInput,
+    NumberInput,
+)
 from .models import Customer
 
 
@@ -34,6 +43,4 @@ class UserUpdateForm(ModelForm):
                 input_option = NumberInput
             else:
                 input_option = TextInput
-            widgets[field] = input_option(
-                attrs={"class": "form-control"}
-            )
+            widgets[field] = input_option(attrs={"class": "form-control"})
