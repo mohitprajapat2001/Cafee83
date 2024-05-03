@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Customer(AbstractUser):
@@ -11,7 +12,7 @@ class Customer(AbstractUser):
     )
     age = models.IntegerField(null=True, blank=True)
     address = models.CharField(max_length=50, null=True, blank=True)
-    phone = models.IntegerField(null=True, blank=True)
+    phone = PhoneNumberField(region="IN")
 
     def __str__(self):
         return self.username
