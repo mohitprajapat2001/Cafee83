@@ -4,10 +4,11 @@ from django.views.generic import View, ListView, FormView, UpdateView
 from .models import Transaction, Computer, Customer
 from .forms import ComputerForm
 from users.forms import UserUpdateForm
+from cafee83 import constant
 
 
 class Home(ListView):
-    template_name = "html/cafeehtml/dashboard.html"
+    template_name = constant.DASHBOARD_HTML
     context_object_name = "customers"
 
     def get_queryset(self):
@@ -15,24 +16,24 @@ class Home(ListView):
 
 
 class Profile(UpdateView):
+    template_name = constant.PROFILE_HTML
     model = Customer
     form_class = UserUpdateForm
-    template_name = "html/cafeehtml/Profile.html"
 
     def get_success_url(self):
         return f"/home/profile/{self.request.user.pk}"
 
 
 class Computer(ListView):
-    template_name = "html/cafeehtml/computer.html"
+    template_name = constant.COMPUTER_HTML
     model = Computer
     context_object_name = "computers"
 
 
 class ComputerForm(FormView):
-    template_name = "html/cafeehtml/computerform.html"
+    template_name = constant.COMPUTERFORM_HTML
     form_class = ComputerForm
-    success_url = "/home/computers"
+    success_url = constant.COMPUTER_URL
 
     def form_valid(self, form):
         form.save()
@@ -40,19 +41,19 @@ class ComputerForm(FormView):
 
 
 class Transactions(ListView):
-    template_name = "html/cafeehtml/transactions.html"
+    template_name = constant.TRANSACTION_HTML
     model = Transaction
     context_object_name = "transactions"
 
 
 class Users(ListView):
-    template_name = "html/cafeehtml/users.html"
+    template_name = constant.USER_HTML
     model = Customer
     context_object_name = "customers"
 
 
 class Staff(ListView):
-    template_name = "html/cafeehtml/staff.html"
+    template_name = constant.STAFF_HTML
     model = Customer
     context_object_name = "customers"
 

@@ -4,12 +4,13 @@ from django.views.generic import View, FormView
 from django.contrib.auth import authenticate, login, logout
 from .forms import CustomerForm, LoginForm
 from .models import Customer
+from cafee83 import constant
 
 
 class Register(FormView):
-    template_name = "html/registration/register.html"
+    template_name = constant.REGISTER_HTML
     form_class = CustomerForm
-    success_url = "/accounts/login"
+    success_url = constant.LOGIN_URL
 
     def form_valid(self, form):
         user = form.save(commit=False)
@@ -19,23 +20,20 @@ class Register(FormView):
 
 
 class Login(FormView):
-    template_name = "html/registration/login.html"
+    template_name = constant.LOGIN_HTML
     form_class = LoginForm
-    success_url = "/home"
+    success_url = constant.HOME_URL
 
     def form_valid(self, form):
-        user = Customer.objects.get(username=form.cleaned_data["username"])
-        if user.check_password(form.cleaned_data["password"]):
-            user = authenticate(
-                username=form.cleaned_data["username"],
-                password=form.cleaned_data["password"],
-            )
-            if user is not None:
-                login(self.request, user)
-                return super().form_valid(form)
-        else:
+        user = authenticate(
+            username=form.cleaned_data["username"],
+            password=form.cleaned_data["password"],
+        )
+        if not user:
             form.add_error(None, "Incorrect username or password.")
             return super().form_invalid(form)
+        login(self.request, user)
+        return super().form_valid(form)
 
 
 class Logout(View):

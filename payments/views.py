@@ -2,11 +2,12 @@
 from django.views.generic import View, TemplateView
 from django.http import JsonResponse
 from cafehome.models import Transaction, Computer
+from cafee83 import constant
 import json
 
 
 class Payments(TemplateView):
-    template_name = "html/payment/payments.html"
+    template_name = constant.PAYMENTS_HTML
 
     def get_context_data(self, **kwargs):
         computer_id = self.kwargs.get("computer_id")
@@ -15,6 +16,7 @@ class Payments(TemplateView):
 
 
 class OrderCompleteView(View):
+
     def post(self, request, *args, **kwargs):
         order_details = json.loads(request.body)
         order = order_details["order_details"]["purchase_units"][0]
