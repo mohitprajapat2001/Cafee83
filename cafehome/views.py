@@ -11,7 +11,7 @@ class Home(ListView):
     context_object_name = "customers"
 
     def get_queryset(self):
-        return self.request.user.customers.all()
+        return self.request.user.transactions.all()
 
 
 class Profile(UpdateView):

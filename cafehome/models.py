@@ -3,10 +3,7 @@ from django.db import models
 from users.models import Customer
 import cafehome.choice as choice
 
-print(choice.GPUCHOICES[0])
 
-
-# Create your models here.
 class Computer(models.Model):
     name = models.CharField(
         verbose_name="Computer Name", max_length=100, unique=True, null=True, blank=True
@@ -45,10 +42,10 @@ class Computer(models.Model):
 class Transaction(models.Model):
     payer_username = models.CharField(verbose_name="Payer Name", max_length=100)
     customer = models.ForeignKey(
-        Customer, on_delete=models.CASCADE, related_name="customers"
+        Customer, on_delete=models.CASCADE, related_name="transactions"
     )
     computer = models.ForeignKey(
-        Computer, on_delete=models.CASCADE, related_name="computers"
+        Computer, on_delete=models.CASCADE, related_name="transactions"
     )
     transaction_id = models.CharField(verbose_name="Transaction Id")
     transaction_amount = models.FloatField(verbose_name="Transaction Amount")
