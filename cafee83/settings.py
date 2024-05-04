@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for cafee83 project.
 
@@ -16,7 +17,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-AUTH_USER_MODEL = 'users.Customer'
+AUTH_USER_MODEL = "users.Customer"
 
 
 # Quick-start development settings - unsuitable for production
@@ -44,7 +45,7 @@ INSTALLED_APPS = [
     "phonenumber_field",
     "cafehome",
     "users",
-    "payments"
+    "payments",
 ]
 
 MIDDLEWARE = [
@@ -53,6 +54,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "login_required.middleware.LoginRequiredMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -87,7 +89,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "USER": "postgres",
         "PASSWORD": "1234",
-        "HOST": "localhost"
+        "HOST": "localhost",
     }
 }
 
@@ -130,7 +132,7 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "templates/static")]
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

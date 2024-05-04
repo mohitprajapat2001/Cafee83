@@ -2,11 +2,12 @@
 from django.shortcuts import redirect
 from django.views.generic import View, FormView
 from django.contrib.auth import authenticate, login, logout
+from login_required import login_not_required
 from .forms import CustomerForm, LoginForm
-from .models import Customer
 from cafee83 import constant
 
 
+@login_not_required
 class Register(FormView):
     template_name = constant.REGISTER_HTML
     form_class = CustomerForm
@@ -19,6 +20,7 @@ class Register(FormView):
         return super().form_valid(form)
 
 
+@login_not_required
 class Login(FormView):
     template_name = constant.LOGIN_HTML
     form_class = LoginForm
