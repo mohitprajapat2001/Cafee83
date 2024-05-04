@@ -38,7 +38,7 @@ class Computer(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = "Computer Detail"
+        verbose_name = "Computer Details"
         ordering = ["name"]
 
 
