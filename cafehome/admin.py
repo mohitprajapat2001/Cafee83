@@ -42,7 +42,7 @@ class TransactionAdmin(admin.ModelAdmin):
         ("Computer Details", {"fields": ["computer"]}),
         (
             "Transaction Details",
-            {"fields": ["transaction_id", "transaction_amount", "transaction_date"]},
+            {"fields": ["transaction_id", "transaction_amount"]},
         ),
     ]
     ordering = ["transaction_id"]

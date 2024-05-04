@@ -52,7 +52,11 @@ class Transaction(models.Model):
     transaction_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.payer_username + " " + str(self.transaction_id)
+        return "Transaction By {name} : {id} of RS {amount}".format(
+            name=self.payer_username,
+            id=self.transaction_id,
+            amount=self.transaction_amount,
+        )
 
     class Meta:
         verbose_name = "Transactions Detail"
