@@ -8,10 +8,10 @@ from users.forms import UserUpdateForm
 
 class Home(ListView):
     template_name = "html/cafeehtml/dashboard.html"
-    context_object_name = "transactions"
+    context_object_name = "customers"
 
     def get_queryset(self):
-        return self.request.user.transaction_set.all()
+        return self.request.user.customers.all()
 
 
 class Profile(UpdateView):

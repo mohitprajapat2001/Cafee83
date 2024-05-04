@@ -20,8 +20,8 @@ class OrderCompleteView(View):
         order = order_details["order_details"]["purchase_units"][0]
         Transaction.objects.create(
             payer_username=order["shipping"]["name"]["full_name"],
-            customer_details=request.user,
-            computer_details=Computer.objects.get(id=self.kwargs.get("computer_id")),
+            customer=request.user,
+            computer=Computer.objects.get(id=self.kwargs.get("computer_id")),
             transaction_id=order_details["order_details"]["id"],
             transaction_amount=order["amount"]["value"],
         )
