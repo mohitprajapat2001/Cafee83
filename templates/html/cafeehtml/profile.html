@@ -10,9 +10,13 @@
     <div class="col-lg-4">
         <div class="card mb-4">
             <div class="card-body text-center">
-                <!-- <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
-                    class="rounded-circle img-fluid" style="width: 150px;"> -->
-                <img src="{{user.profile.url}}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                <!-- img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" -->
+
+                {% if user.profile %}
+                <img src="{{user.profile.url}}" alt="avatar" class="rounded-circle img-fluid border border-3 border-dark p-2" style="width: 150px;">
+                {% else %}
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" class="rounded-5 img-fluid border border-3 border-dar" alt="avatar" style="width: 150px;">
+                {% endif %}
                 <h5 class="my-3">{{user.username}}</h5>
                 <p class="text-muted mb-4">{{user.address}}</p>
                 <div class="d-flex justify-content-center mb-2">
