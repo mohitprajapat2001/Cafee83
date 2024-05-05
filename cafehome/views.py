@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from typing import Any
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect
 from django.views.generic import View, ListView, FormView, UpdateView
 from .models import Transaction, Computer, Customer

@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.db import models
+from django_extensions.db.models import ActivatorModel
 from users.models import Customer
 import cafehome.choice as choice
 
 
-class Computer(models.Model):
+class Computer(ActivatorModel):
     name = models.CharField(
         verbose_name="Computer Name", max_length=100, unique=True, null=True, blank=True
     )
@@ -29,7 +30,6 @@ class Computer(models.Model):
     )
     wifi = models.BooleanField(verbose_name="WiFi", default=True)
     usage_price = models.IntegerField(default=0)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
@@ -60,4 +60,4 @@ class Transaction(models.Model):
 
     class Meta:
         verbose_name = "Transactions Detail"
-        ordering = ["transaction_id"]
+        ordering = ["-transaction_date"]

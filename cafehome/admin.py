@@ -18,7 +18,7 @@ class ComputerAdmin(admin.ModelAdmin):
                     "gpu",
                     "usage_price",
                     "wifi",
-                    "is_active",
+                    "status",
                 ]
             },
         )
@@ -26,12 +26,11 @@ class ComputerAdmin(admin.ModelAdmin):
     list_display = ["name", "processor", "ram", "gpu"]
     ordering = ["name"]
     search_fields = ["name"]
-    list_filter = ["name", "ram", "is_active"]
-    actions = ["set_unactive"]
+    list_filter = ["name", "ram", "status"]
 
     @admin.action(description="Mark selected Computers as Unactive")
     def set_unactive(self, queryset):
-        queryset.update(is_active=False)
+        queryset.update(status=False)
 
 
 @admin.register(Transaction)

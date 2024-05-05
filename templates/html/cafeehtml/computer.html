@@ -15,7 +15,7 @@ Available Computer
 <!-- Computer Start -->
 <div class="row d-flex justify-content-around">
     {% for computer in computers %}
-    {% if computer.is_active %}
+    {% if computer.status %}
     <div class="card text-center col-6 my-3">
         <img src="{% static 'img/computer.png' %}" class="card-img-top" alt="Computer_Reference">
         <div class="card-body">

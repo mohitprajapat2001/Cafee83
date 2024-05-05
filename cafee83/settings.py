@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "schema_graph",
     "phonenumber_field",
+    "django_extensions",
     "cafehome",
     "users",
     "payments",
