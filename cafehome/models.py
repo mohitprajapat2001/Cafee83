@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-from django_extensions.db.models import ActivatorModel
+from django_extensions.db.models import ActivatorModel, TimeStampedModel
 from users.models import Customer
-import cafehome.choice as choice
+import cafee83.choice as choice
+from cafee83.choiceconstant import INTEL_CORE_I5, NVIDIA_GEFORCE_RTX_3060, TWO
 
 
 class Computer(ActivatorModel):
@@ -10,14 +11,15 @@ class Computer(ActivatorModel):
         verbose_name="Computer Name", max_length=100, unique=True, null=True, blank=True
     )
     processor = models.CharField(
-        default=choice.PROCESSORCHOICES[0],
         verbose_name="Processor",
+        default=INTEL_CORE_I5,
         max_length=100,
         choices=choice.PROCESSORCHOICES,
     )
-    ram = models.IntegerField(
-        default=choice.RAMCHOICES[0],
+    ram = models.CharField(
         verbose_name="Random Access Memory",
+        max_length=10,
+        default=TWO,
         choices=choice.RAMCHOICES,
     )
     gpu = models.CharField(
@@ -26,7 +28,7 @@ class Computer(ActivatorModel):
         null=True,
         blank=True,
         choices=choice.GPUCHOICES,
-        default=choice.GPUCHOICES[0],
+        default=NVIDIA_GEFORCE_RTX_3060,
     )
     wifi = models.BooleanField(verbose_name="WiFi", default=True)
     usage_price = models.IntegerField(default=0)
@@ -39,7 +41,7 @@ class Computer(ActivatorModel):
         ordering = ["name"]
 
 
-class Transaction(models.Model):
+class Transaction(TimeStampedModel):
     payer_username = models.CharField(verbose_name="Payer Name", max_length=100)
     customer = models.ForeignKey(
         Customer, on_delete=models.CASCADE, related_name="transactions"
@@ -49,7 +51,6 @@ class Transaction(models.Model):
     )
     transaction_id = models.CharField(verbose_name="Transaction Id")
     transaction_amount = models.FloatField(verbose_name="Transaction Amount")
-    transaction_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return "Transaction By {name} : {id} of RS {amount}".format(
@@ -60,4 +61,4 @@ class Transaction(models.Model):
 
     class Meta:
         verbose_name = "Transactions Detail"
-        ordering = ["-transaction_date"]
+        ordering = ["-created"]
