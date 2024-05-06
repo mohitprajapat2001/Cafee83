@@ -62,6 +62,7 @@ class Staff(ListView):
 class ToggleStatusStaff(View):
 
     def post(self, request):
-        user = Customer.objects.filter(id=request.POST["customer_id"])
-        user.update(is_staff=~F("is_staff"))
+        user = Customer.objects.get(id=request.POST["customer_id"])
+        user.is_staff = not user.is_staff
+        user.save(update_fields=["is_staff"])
         return redirect("staff")

@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.utils import timezone
+from datetime import timedelta
 from django_extensions.db.models import ActivatorModel, TimeStampedModel
 from users.models import Customer
 import cafee83.choice as choice
@@ -65,3 +69,22 @@ class Transaction(TimeStampedModel):
     class Meta:
         verbose_name = "Transactions Detail"
         ordering = ["-created"]
+
+
+# @receiver(post_save, sender=Transaction)
+# def update_computer_status(sender, instance, created, **kwargs):
+#     if created:
+#         computer = instance.computer
+#         computer.status = 0
+#         computer.save()
+
+#         def activate_computer():
+#             computer.status = 1
+#             computer.save()
+
+#         activation_time = timezone.now() + timedelta(seconds=30)
+#         while timezone.now() < activation_time:
+#             pass  # Wait until the activation time is reached
+
+#         # Once the activation time is reached, execute the activate_computer function
+#         activate_computer()

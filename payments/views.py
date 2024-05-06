@@ -28,5 +28,4 @@ class OrderCompleteView(View):
             transaction_amount=order["amount"]["value"],
             transaction_status=order_details.get("order_details").get("status"),
         )
-
         return JsonResponse({"success": True})
