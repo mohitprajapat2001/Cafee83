@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-from typing import Any
-from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect
 from django.views.generic import View, ListView, FormView, UpdateView
 from .models import Transaction, Computer, Customer
+from django.db.models import F
 from .forms import ComputerForm
 from users.forms import UserUpdateForm
 from cafee83 import constant
@@ -63,7 +62,6 @@ class Staff(ListView):
 class ToggleStatusStaff(View):
 
     def post(self, request):
-        user = Customer.objects.get(id=request.POST["customer_id"])
-        user.is_staff = not user.is_staff
-        user.save()
+        user = Customer.objects.filter(id=request.POST["customer_id"])
+        user.update(is_staff=~F("is_staff"))
         return redirect("staff")
