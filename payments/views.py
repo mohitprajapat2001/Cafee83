@@ -26,6 +26,7 @@ class OrderCompleteView(View):
             computer=Computer.objects.get(id=self.kwargs.get("computer_id")),
             transaction_id=order_details["order_details"]["id"],
             transaction_amount=order["amount"]["value"],
+            transaction_status=order_details.get("order_details").get("status"),
         )
 
         return JsonResponse({"success": True})

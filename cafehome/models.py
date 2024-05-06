@@ -37,7 +37,7 @@ class Computer(ActivatorModel):
         return self.name
 
     class Meta:
-        verbose_name = "Computer Details"
+        verbose_name = "Computer Detail"
         ordering = ["name"]
 
 
@@ -51,6 +51,9 @@ class Transaction(TimeStampedModel):
     )
     transaction_id = models.CharField(verbose_name="Transaction Id")
     transaction_amount = models.FloatField(verbose_name="Transaction Amount")
+    transaction_status = models.CharField(
+        verbose_name="Transaction Status", max_length=10
+    )
 
     def __str__(self):
         return "Transaction By {name} : {id} of RS {amount}".format(
