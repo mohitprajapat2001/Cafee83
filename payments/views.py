@@ -18,14 +18,19 @@ class Payments(TemplateView):
 class OrderCompleteView(View):
 
     def post(self, request, *args, **kwargs):
-        order_details = json.loads(request.body)
-        order = order_details["order_details"]["purchase_units"][0]
-        Transaction.objects.create(
-            payer_username=order["shipping"]["name"]["full_name"],
-            customer=request.user,
-            computer=Computer.objects.get(id=self.kwargs.get("computer_id")),
-            transaction_id=order_details["order_details"]["id"],
-            transaction_amount=order["amount"]["value"],
-            transaction_status=order_details.get("order_details").get("status"),
-        )
-        return JsonResponse({"success": True})
+        try:
+            order_details = json.loads(request.body)
+            order = order_details["order_details"]["purchase_units"][0]
+            Transaction.objects.create(
+                payer_username=order["shipping"]["name"]["full_name"],
+                customer=request.user,
+                computer=Computer.objects.get(id=self.kwargs.get("computer_id")),
+                transaction_id=order_details["order_details"]["id"],
+                transaction_amount=order["amount"]["value"],
+                transaction_status=order_details.get("order_details").get("status"),
+            )
+            return JsonResponse({"success": True})
+        except Exception:
+            return JsonResponse(
+                {"success": False, "error": "User Autorized Payment Gateway"}
+            )

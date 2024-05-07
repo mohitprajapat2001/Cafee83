@@ -11,6 +11,7 @@ STAFF_HTML = "html/cafeehtml/staff.html"
 PAYMENTS_HTML = "html/payment/payments.html"
 REGISTER_HTML = "html/registration/register.html"
 LOGIN_HTML = "html/registration/login.html"
+PERMISSION_REQUIRED_HTML = "html/cafeehtml/permissionrequired.html"
 
 
 # SUCESS URL REDIRECT

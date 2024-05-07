@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
+from django.http.response import HttpResponse as HttpResponse
 from django.shortcuts import redirect
-from django.views.generic import View, ListView, FormView, UpdateView
+from django.views.generic import View, ListView, FormView, UpdateView, TemplateView
 from .models import Transaction, Computer, Customer
-from django.db.models import F
 from .forms import ComputerForm
 from users.forms import UserUpdateForm
 from cafee83 import constant
-from .task import activate_computer
 
 
 class Home(ListView):
@@ -37,6 +36,11 @@ class ComputerForm(FormView):
     form_class = ComputerForm
     success_url = constant.COMPUTER_URL
 
+    def dispatch(self, request):
+        if not request.user.is_staff:
+            return PermissionRequired.as_view()(request)
+        return super().dispatch(request)
+
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
@@ -53,11 +57,21 @@ class Users(ListView):
     model = Customer
     context_object_name = "customers"
 
+    def dispatch(self, request):
+        if not request.user.is_staff:
+            return PermissionRequired.as_view()(request)
+        return super().dispatch(request)
+
 
 class Staff(ListView):
     template_name = constant.STAFF_HTML
     model = Customer
     context_object_name = "customers"
+
+    def dispatch(self, request):
+        if not request.user.is_superuser:
+            return PermissionRequired.as_view()(request)
+        return super().dispatch(request)
 
 
 class ToggleStatusStaff(View):
@@ -67,3 +81,12 @@ class ToggleStatusStaff(View):
         user.is_staff = not user.is_staff
         user.save(update_fields=["is_staff"])
         return redirect("staff")
+
+    def dispatch(self, request):
+        if not request.user.is_superuser:
+            return PermissionRequired.as_view()(request)
+        return super().dispatch(request)
+
+
+class PermissionRequired(TemplateView):
+    template_name = constant.PERMISSION_REQUIRED_HTML

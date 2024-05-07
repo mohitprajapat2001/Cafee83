@@ -57,8 +57,13 @@
                     body: JSON.stringify({ 'order_details': order_details })
                 })
                     .then(response => response.json())
-                    .then(function () {
-                        window.location.href = "{% url 'home' %}"
+                    .then(function (response) {
+                        if (response.success) {
+                            alert("Order Complete")
+                            window.location.href = "{% url 'home' %}";
+                        } else {
+                            alert("An error occurred: " + response.error);
+                        }
                     })
                     .catch(error => console.error(error));
             });
