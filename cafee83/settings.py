@@ -42,12 +42,13 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "schema_graph",
-    "phonenumber_field",
-    "django_extensions",
     "cafehome.apps.CafehomeConfig",
     "users.apps.UsersConfig",
     "payments.apps.PaymentsConfig",
+    "schema_graph",
+    "phonenumber_field",
+    "django_extensions",
+    "django_celery_results",
 ]
 
 MIDDLEWARE = [
@@ -153,3 +154,4 @@ CELERY_BROKER_URL = "redis://127.0.0.1:6379"
 CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_BACKEND = "django-db"

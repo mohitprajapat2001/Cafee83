@@ -6,6 +6,7 @@ from django.db.models import F
 from .forms import ComputerForm
 from users.forms import UserUpdateForm
 from cafee83 import constant
+from .task import activate_computer
 
 
 class Home(ListView):
