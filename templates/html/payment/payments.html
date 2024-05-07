@@ -1,0 +1,69 @@
+{% extends 'html/base.html' %}
+{% load static %}
+
+{% block title %}Payments{% endblock %}
+{% block layoutTitle %}Payments{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+<div class="row">
+    <dt class="col-3">Computer Name:</dt>
+    <dd class="col-9">{{computer.name}}</dd>
+
+    <dt class="col-3">Processor</dt>
+    <dd class="col-9">{{computer.processor}}</dd>
+
+    <dt class="col-3">GPU</dt>
+    <dd class="col-9">{{computer.gpu}}</dd>
+
+    <dt class="col-3">Ram</dt>
+    <dd class="col-9">{{computer.ram}}</dd>
+
+    <dt class="col-3">Price</dt>
+    <dd class="col-9">{{computer.usage_price}} $</dd>
+
+    <hr>
+
+    <div class="d-flex justify-content-center" id="paypal-button-container"></div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script
+    src="https://www.paypal.com/sdk/js?client-id=Ad-FteXT0_V-dUi3hzwkkW37SLwsQaJfNiScNwLS2NFpmX49QZWxt8BHl-7KnX0rCCwDVB7tYlb7ZRF4">
+    </script>
+<script>
+    paypal.Buttons({
+
+        createOrder: function (data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: "{{computer.usage_price}}"
+                    }
+                }]
+            })
+        },
+        onApprove: function (data, actions) {
+            return actions.order.capture().then(function (order_details) {
+                console.log(order_details)
+                var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                fetch("{% url 'ordercomplete' computer_id=computer.id %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrftoken
+                    },
+                    body: JSON.stringify({ 'order_details': order_details })
+                })
+                    .then(response => response.json())
+                    .then(function () {
+                        window.location.href = "{% url 'home' %}"
+                    })
+                    .catch(error => console.error(error));
+            });
+        }
+    }).render("#paypal-button-container");
+
+</script>
+{% endblock %}

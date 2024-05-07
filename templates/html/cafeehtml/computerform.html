@@ -1,0 +1,49 @@
+{% extends 'html/base.html' %}
+
+{% block layoutTitle %}Create{% endblock %}
+
+{% block title %}Add New Computer{% endblock %}
+
+{% block content %}
+{% if form.errors %}
+<div class="alert alert-danger">
+    {% for field in form %}
+    {% for error in field.errors %}
+    <strong>{{ error|escape }}</strong>
+    {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+    <strong>{{ error|escape }}</strong>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="px-4 px-md-5 text-center text-lg-start">
+    <div class="container">
+        <div class="row gx-lg-5 align-items-center">
+            <div class="col-lg-4 mb-5 mb-lg-0">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                    class="img-fluid" alt="Sample image">
+            </div>
+
+            <div class="col-lg-8 mb-5 mb-lg-0">
+                <div class="card">
+                    <div class="card-body py-5 px-md-5">
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{form.as_p}}
+                            <!-- Submit button -->
+                            <button type="submit" data-mdb-button-init data-mdb-ripple-init
+                                class="btn btn-primary btn-block mb-4">
+                                Create Now
+                            </button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Jumbotron -->
+{% endblock %}

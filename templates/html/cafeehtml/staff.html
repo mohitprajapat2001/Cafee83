@@ -1,0 +1,49 @@
+{% extends 'html/base.html' %}
+{% load static %}
+
+{% block title %}Staff{% endblock %}
+{% block layoutTitle %}Staff Status{% endblock %}
+
+{% block content %}
+<div class="input-group mb-3">
+    <span class="input-group-text" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
+    <input type="text" class="form-control" placeholder="Search Users" aria-label="Username" aria-describedby="basic-addon1" id="searchInput">
+    <button type="button" class="btn btn-dark" id="toggle-staff-view">Toggle Staff View</button>
+  </div>
+<table class="table table-hover" id="staffTable">
+    <thead>
+        <tr>
+            <th scope="col">Customer ID</th>
+            <th scope="col">Customer Username</th>
+            <th scope="col">Customer Age</th>
+            <th scope="col">Customer Phone</th>
+            <th scope="col">Customer Status</th>
+            <th scope="col">Customer Staff</th>
+            <th scope="col">Toggle Staff Status</th>
+        </tr>
+    </thead>
+    <tbody class="text-capitalize" id="customerTableBody">
+        {% for customer in customers %}
+        <tr>
+            <th scope="row">{{customer.id}}</th>
+            <td class="customer-username">{{customer.username}}</td>
+            <td>{{customer.age}}</td>
+            <td>{{customer.phone}}</td>
+            <td>{{customer.is_active}}</td>
+            <td class="staffStatus">{{customer.is_staff}}</td>
+            <td>
+                <form method="post" action="/home/togglestatusstaff/">
+                    {% csrf_token %}
+                    <input type="hidden" name="customer_id" value="{{ customer.id }}">
+                    <button type="submit" class="btn btn-primary">Toggle Status</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/staff.js' %}"></script>
+{% endblock %}

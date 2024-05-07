@@ -1,0 +1,85 @@
+{% extends "html/base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+{% block layoutTitle %}Dashboard{% endblock %}
+{% block style %}
+<link rel="stylesheet"
+    href="https://unpkg.com/bs-brain@2.0.3/components/error-404s/error-404-1/assets/css/error-404-1.css">
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+{% if customers %}
+<section class="row d-flex justify-content-around">
+    {% for customer in customers %}
+    <div class="col-6 my-3">
+        <div class="row justify-content-center">
+            <div class="">
+                <div class="card text-black">
+                    <i class="fab fa-apple fa-lg pt-3 pb-1 px-3"></i>
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/3.webp"
+                        class="card-img-top" alt="Apple Computer" />
+                    <div class="card-body text-capitalize">
+                        <div class="text-center">
+                            <h5 class="card-title">{{user.username}}</h5>
+                            <p class="text-muted mb-4">{{customer.computer.gpu}}</p>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-between">
+                                <span>Ram</span><span> {{customer.computer.ram}}GB</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>Processor</span><span>{{customer.computer.processor}}</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>Amount</span><span>${{customer.computer.usage_price}}</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between total font-weight-bold mt-4 text-capitalize">
+                            <span>Payer Name</span>
+                            <span>
+                                <strong>{{customer.payer_username}}</strong>
+                            </span>
+                        </div>
+                        <div class="d-flex justify-content-between total font-weight-bold mt-4 text-capitalize">
+                            <span>Transaction Status</span>
+                            <span>
+                                <strong>{{customer.transaction_status}}</strong>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+{% else %}
+<div class="alert alert-primary text-center" role="alert">
+    <h1>No Active PC Sessions</h1>
+    <a class="btn btn-primary" href="/home/computers" role="button">Select Computer</a>
+</div>
+{% endif %}
+{% else %}
+<section class="py-3 py-md-5 min-vh-100 d-flex justify-content-center align-items-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="text-center">
+                    <h2 class="d-flex justify-content-center align-items-center gap-2 mb-4">
+                        <span class="display-1 fw-bold">4</span>
+                        <i class="fa-solid fa-bomb text-danger display-4"></i>
+                        <span class="display-1 fw-bold bsb-flip-h">4</span>
+                    </h2>
+                    <h3 class="h2 mb-2">Oops! You're Not Logged In.</h3>
+                    <p class="mb-5">The page you are looking for Requied Login.</p>
+                    <a class="btn bsb-btn-5xl btn-dark rounded-pill px-5 fs-6 m-0" href="/accounts/login"
+                        role="button">Back to
+                        Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

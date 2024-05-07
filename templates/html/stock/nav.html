@@ -1,0 +1,78 @@
+{% load static %}
+{% block nav %}
+<!--Main Navigation-->
+<!-- Navbar -->
+<nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+
+        <!-- Brand -->
+        <a class="navbar-brand font-monospace fs-2 fw-bold" href="/home">
+            Cafee'83
+        </a>
+        <!-- Search form -->
+        <form class="d-none d-md-flex input-group w-auto my-auto">
+            <input autocomplete="off" type="search" class="form-control rounded"
+                placeholder='Search (ctrl + "/" to focus)' style="min-width: 225px" />
+            <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
+        </form>
+
+        <!-- Right links -->
+        <ul class="navbar-nav ms-auto d-flex flex-row">
+
+            <!-- Icon -->
+            <li class="nav-item">
+                <a class="nav-link me-3 me-lg-0 {% if request.path == '/home/' %}active{% endif %}"
+                    href="/home">
+                    <i class="fas fa-home"></i>
+                </a>
+            </li>
+            <!-- Icon -->
+            <li class="nav-item me-3 me-lg-0">
+                <a class="nav-link {% if request.path == '/home/info/' %}active{% endif %}" href="/home/info">
+                    <i class="fas fa-circle-info"></i>
+                </a>
+            </li>
+
+            <!-- Notification dropdown -->
+            <li class="nav-item dropdown">
+                <div class="dropdown">
+                    <button class="btn btn-tertiary border-0 dropdown-toggle icon-link-hover" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-link"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="https://youtube.com/@itsmohitcodes"
+                                target="_blank">Youtube</a></li>
+                        <li><a class="dropdown-item" href="https://instagram.com/itsmohit.codes"
+                                target="_blank">Instagram</a></li>
+                        <li><a class="dropdown-item" href="https://github.com/mohitprajapat2001"
+                                target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+            </li>
+            {% if user.is_authenticated %}
+            <!-- Avatar -->
+            <li class="nav-item dropdown">
+                <button class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center btn btn-tertiary"
+                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg" class="rounded-circle"
+                        height="22" alt="" loading="lazy" />
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="avtarDropDown">
+                    <li><a class="dropdown-item" href="/home/profile/{{user.pk}}">My profile</a></li>
+                    <li><a class="dropdown-item" href="/accounts/logout">Logout</a></li>
+                </ul>
+                {% else %}
+            <li class="nav-item dropdown">
+                <a class="btn btn-primary" href="/accounts/login" role="button">Login</a>
+            </li>
+            {% endif %}
+            </li>
+        </ul>
+    </div>
+    <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->
+<!--Main Navigation-->
+{% endblock %}

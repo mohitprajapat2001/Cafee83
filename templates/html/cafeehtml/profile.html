@@ -1,0 +1,131 @@
+{% extends "html/base.html" %}
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+{% block layoutTitle %}User Profile{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card mb-4">
+            <div class="card-body text-center">
+                <!-- img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" -->
+
+                {% if user.profile %}
+                <img src="{{user.profile.url}}" alt="avatar" class="rounded-circle img-fluid border border-3 border-dark p-2" style="width: 150px;">
+                {% else %}
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" class="rounded-5 img-fluid border border-3 border-dar" alt="avatar" style="width: 150px;">
+                {% endif %}
+                <h5 class="my-3">{{user.username}}</h5>
+                <p class="text-muted mb-4">{{user.address}}</p>
+                <div class="d-flex justify-content-center mb-2">
+                    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary"
+                        data-bs-toggle="modal" data-bs-target="#profileEditModal">Edit Profile</button>
+                    <a href="/accounts/logout" data-mdb-button-init data-mdb-ripple-init
+                        class="btn btn-outline-primary ms-1">Log
+                        Out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0">Full Name</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0">{{user.first_name}} {{user.last_name}}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0">Email</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0">{{user.email}}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0">Age</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0">{{user.age}}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0">Mobile</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0">{{user.phone}}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0">Address</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0">{{user.address}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Edit Profile Modal Start -->
+<!-- Modal -->
+<div class="modal fade" id="profileEditModal" data-bs-backdrop="static" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit User Profile</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            {% if form.errors %}
+            <div class="alert alert-danger">
+                {% for field in form %}
+                {% for error in field.errors %}
+                <strong>{{ error|escape }}</strong>
+                {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                <strong>{{ error|escape }}</strong>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <form class="modal-body" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="container bootstrap snippets bootdey">
+                    <div class="row">
+                        <!-- edit form column -->
+                        <div class="col-md-12 personal-info">
+                            <h3>Personal info</h3>
+                            <hr>
+                            <div class="form-horizontal" role="form">
+                                {{form.as_p}}
+                            </div>
+                            <button type="submit" class="btn btn-primary my-3">Submit Details</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Edit Profile Modal End -->
+{% endblock %}
