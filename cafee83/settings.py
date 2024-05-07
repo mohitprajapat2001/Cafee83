@@ -45,9 +45,9 @@ INSTALLED_APPS = [
     "schema_graph",
     "phonenumber_field",
     "django_extensions",
-    "cafehome",
-    "users",
-    "payments",
+    "cafehome.apps.CafehomeConfig",
+    "users.apps.UsersConfig",
+    "payments.apps.PaymentsConfig",
 ]
 
 MIDDLEWARE = [

@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 from django.db import models
+from django_extensions.db.models import ActivatorModel, TimeStampedModel
+from cafehome.task import activate_computer
+from users.models import Customer
+import cafee83.choice as choice
+from cafee83 import choiceconstant
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
 from datetime import timedelta
-from django_extensions.db.models import ActivatorModel, TimeStampedModel
-from users.models import Customer
-import cafee83.choice as choice
-from cafee83.choiceconstant import INTEL_CORE_I5, NVIDIA_GEFORCE_RTX_3060, TWO
+from .task import activate_computer
 
 
 class Computer(ActivatorModel):
@@ -16,14 +18,14 @@ class Computer(ActivatorModel):
     )
     processor = models.CharField(
         verbose_name="Processor",
-        default=INTEL_CORE_I5,
+        default=choiceconstant.INTEL_CORE_I5,
         max_length=100,
         choices=choice.PROCESSORCHOICES,
     )
     ram = models.CharField(
         verbose_name="Random Access Memory",
         max_length=10,
-        default=TWO,
+        default=choiceconstant.TWO,
         choices=choice.RAMCHOICES,
     )
     gpu = models.CharField(
@@ -32,7 +34,7 @@ class Computer(ActivatorModel):
         null=True,
         blank=True,
         choices=choice.GPUCHOICES,
-        default=NVIDIA_GEFORCE_RTX_3060,
+        default=choiceconstant.NVIDIA_GEFORCE_RTX_3060,
     )
     wifi = models.BooleanField(verbose_name="WiFi", default=True)
     usage_price = models.IntegerField(default=0)
@@ -78,13 +80,7 @@ class Transaction(TimeStampedModel):
 #         computer.status = 0
 #         computer.save()
 
-#         def activate_computer():
-#             computer.status = 1
-#             computer.save()
-
 #         activation_time = timezone.now() + timedelta(seconds=30)
-#         while timezone.now() < activation_time:
-#             pass  # Wait until the activation time is reached
 
-#         # Once the activation time is reached, execute the activate_computer function
-#         activate_computer()
+#         activation_time = timezone.now() + timedelta(hours=1)
+#         activate_computer.apply_async(args=[computer.id], eta=activation_time)
