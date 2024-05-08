@@ -4,12 +4,13 @@
 {% block title %}Staff{% endblock %}
 {% block layoutTitle %}Staff Status{% endblock %}
 
+
 {% block content %}
 <div class="input-group mb-3">
     <span class="input-group-text" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
-    <input type="text" class="form-control" placeholder="Search Users" aria-label="Username" aria-describedby="basic-addon1" id="searchInput">
-    <button type="button" class="btn btn-dark" id="toggle-staff-view">Toggle Staff View</button>
-  </div>
+    <input type="text" class="form-control" placeholder="Search Users" aria-label="Username"
+        aria-describedby="basic-addon1" id="searchInput">
+</div>
 <table class="table table-hover" id="staffTable">
     <thead>
         <tr>
@@ -18,8 +19,8 @@
             <th scope="col">Customer Age</th>
             <th scope="col">Customer Phone</th>
             <th scope="col">Customer Status</th>
-            <th scope="col">Customer Staff</th>
-            <th scope="col">Toggle Staff Status</th>
+            <th scope="col">Customer Groups</th>
+            <th scope="col">Edit Groups</th> <!-- Added column for editing groups -->
         </tr>
     </thead>
     <tbody class="text-capitalize" id="customerTableBody">
@@ -29,13 +30,26 @@
             <td class="customer-username">{{customer.username}}</td>
             <td>{{customer.age}}</td>
             <td>{{customer.phone}}</td>
-            <td>{{customer.is_active}}</td>
-            <td class="staffStatus">{{customer.is_staff}}</td>
+            <td class="customerStatus">{{customer.is_active}}</td>
             <td>
-                <form method="post" action="/home/togglestatusstaff/">
+                {% for group in customer.groups.all %}
+                {% if group.name %}
+                {{ group.name }}{% if not forloop.last %}, {% endif %}
+                {% else %}
+                No Group Assign
+                {% endif %}
+                {% endfor %}
+            </td>
+            <td>
+                <form method="POST" action="/home/usergroupedit/">
                     {% csrf_token %}
                     <input type="hidden" name="customer_id" value="{{ customer.id }}">
-                    <button type="submit" class="btn btn-primary">Toggle Status</button>
+                    <select class="form-select mb-2" multiple aria-label="Multiple select example" name="groupSelect">
+                        <option value="Computer Editor">Computer Editor</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Users View">Users View</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </form>
             </td>
         </tr>
@@ -43,6 +57,7 @@
     </tbody>
 </table>
 {% endblock %}
+
 
 {% block js %}
 <script src="{% static 'js/staff.js' %}"></script>

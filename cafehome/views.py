@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.http.response import HttpResponse as HttpResponse
 from django.shortcuts import redirect
+from django.contrib.auth.models import Group
 from django.views.generic import View, ListView, FormView, UpdateView, TemplateView
 from .models import Transaction, Computer, Customer
 from .forms import ComputerForm
@@ -37,7 +38,7 @@ class ComputerForm(FormView):
     success_url = constant.COMPUTER_URL
 
     def dispatch(self, request):
-        if not request.user.is_staff:
+        if not request.user.groups.filter(name="Computer Editor").exists():
             return PermissionRequired.as_view()(request)
         return super().dispatch(request)
 
@@ -50,6 +51,7 @@ class Transactions(ListView):
     template_name = constant.TRANSACTION_HTML
     model = Transaction
     context_object_name = "transactions"
+    ordering = "-created"
 
 
 class Users(ListView):
@@ -58,15 +60,19 @@ class Users(ListView):
     context_object_name = "customers"
 
     def dispatch(self, request):
-        if not request.user.is_staff:
-            return PermissionRequired.as_view()(request)
-        return super().dispatch(request)
+        if (
+            request.user.groups.filter(name="Users View").exists()
+            or request.user.is_superuser
+        ):
+            return super().dispatch(request)
+        return PermissionRequired.as_view()(request)
 
 
 class Staff(ListView):
     template_name = constant.STAFF_HTML
     model = Customer
     context_object_name = "customers"
+    ordering = "id"
 
     def dispatch(self, request):
         if not request.user.is_superuser:
@@ -74,18 +80,21 @@ class Staff(ListView):
         return super().dispatch(request)
 
 
-class ToggleStatusStaff(View):
+class UserGroupEdit(View):
+
+    def dispatch(self, request):
+        if not request.user.is_superuser:
+            return PermissionRequired.as_view()(request)
+        return super().dispatch(request)
 
     def post(self, request):
-        user = Customer.objects.get(id=request.POST["customer_id"])
-        user.is_staff = not user.is_staff
-        user.save(update_fields=["is_staff"])
-        return redirect("staff")
-
-    def dispatch(self, request):
-        if not request.user.is_superuser:
-            return PermissionRequired.as_view()(request)
-        return super().dispatch(request)
+        groups = request.POST.getlist("groupSelect") + ["Customer"]
+        user = Customer.objects.get(id=request.POST.get("customer_id"))
+        user.groups.clear()
+        for group in groups:
+            group = Group.objects.get(name=group)
+            user.groups.add(group)
+        return redirect("/home/staff")
 
 
 class PermissionRequired(TemplateView):

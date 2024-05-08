@@ -5,7 +5,7 @@
 
 {% block layoutTitle %}
 Available Computer
-{% if request.user.is_staff %}
+{% if perms.cafehome.add_computer %}
 <a href="/home/computerform" class="btn btn-primary float-end" type="button">Add New Computer</a>
 {% endif %}
 {% endblock %}

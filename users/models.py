@@ -8,7 +8,7 @@ class Customer(AbstractUser):
     profile = models.ImageField(upload_to="Customer_Profile", null=True, blank=True)
     age = models.IntegerField(null=True, blank=True)
     address = models.CharField(max_length=50, null=True, blank=True)
-    phone = PhoneNumberField(region="IN")
+    phone = PhoneNumberField(region="IN", blank=True, null=True)
 
     def __str__(self):
         return self.username

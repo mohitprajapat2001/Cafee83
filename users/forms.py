@@ -7,8 +7,10 @@ from django.forms import (
     PasswordInput,
     FileInput,
     NumberInput,
+    SelectMultiple,
 )
 from .models import Customer
+from django.contrib.auth.models import Group
 
 
 class CustomerForm(ModelForm):
@@ -44,3 +46,14 @@ class UserUpdateForm(ModelForm):
             else:
                 input_option = TextInput
             widgets[field] = input_option(attrs={"class": "form-control"})
+
+
+class UpdateUserGroup(ModelForm):
+    class Meta:
+        model = Customer
+        fields = ["groups"]
+        widgets = {"groups": SelectMultiple(attrs={"class": "form-control"})}
+
+    def __init__(self, *args, **kwargs):
+        super(UserUpdateForm, self).__init__(*args, **kwargs)
+        self.fields["groups"].queryset = Group.objects.all()

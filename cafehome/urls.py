@@ -10,9 +10,5 @@ urlpatterns = [
     path("transactions/", views.Transactions.as_view(), name="transactions"),
     path("users/", views.Users.as_view(), name="users"),
     path("staff/", views.Staff.as_view(), name="staff"),
-    path(
-        "togglestatusstaff/",
-        views.ToggleStatusStaff.as_view(),
-        name="toggle staff status",
-    ),
+    path("usergroupedit/", views.UserGroupEdit.as_view(), name="user group edit"),
 ]

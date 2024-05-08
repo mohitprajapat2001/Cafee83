@@ -22,8 +22,7 @@
 
             <!-- Icon -->
             <li class="nav-item">
-                <a class="nav-link me-3 me-lg-0 {% if request.path == '/home/' %}active{% endif %}"
-                    href="/home">
+                <a class="nav-link me-3 me-lg-0 {% if request.path == '/home/' %}active{% endif %}" href="/home">
                     <i class="fas fa-home"></i>
                 </a>
             </li>
@@ -53,6 +52,11 @@
             </li>
             {% if user.is_authenticated %}
             <!-- Avatar -->
+            {% if user.is_superuser %}
+            <li class="nav-item dropdown">
+                <a class="btn btn-primary" href="/admin" role="button">Admin</a>
+            </li>
+            {% endif %}
             <li class="nav-item dropdown">
                 <button class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center btn btn-tertiary"
                     type="button" data-bs-toggle="dropdown" aria-expanded="false">
