@@ -1,0 +1,111 @@
+{% extends 'html/base.html' %}
+
+{% block title %}Info{% endblock %}
+
+{% block layoutTitle %}Cafee83 - Cyber Cafe Management System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="fs-1">Project description</h1>
+        <p class="fs-5">
+            Cafee83 is a comprehensive Cyber Cafe Management System developed using Django, a high-level Python web
+            framework. The system aims to provide efficient management of cyber cafes, including user
+            authentication, profile management, computer management, and more.
+        </p>
+        <hr>
+        <h3>Project Features:</h3>
+        <table class="table table-hover border border-1 border-rounded">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Feature</th>
+                    <th scope="col">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>User Authentication</td>
+                    <td>Secure login and registration for users</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Profile Management</td>
+                    <td>Allow users to update their profiles</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Computer Management</td>
+                    <td>Manage computers in the cyber cafe</td>
+                </tr>
+                <tr>
+                    <th scope="row">4</th>
+                    <td>Celery Based Model Update</td>
+                    <td>Asynchronous updates using Celery</td>
+                </tr>
+                <tr>
+                    <th scope="row">5</th>
+                    <td>Custom User Permissions</td>
+                    <td>Assign specific permissions to users based on their roles</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <h3>Custom User-Based Permissions:</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Permission Type</th>
+                    <th scope="col">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Computer Editor</td>
+                    <td>Can create, delete, and update computers</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Admin Access</td>
+                    <td>Limited access reserved for administrators</td>
+                </tr>
+            </tbody>
+        </table>
+        <h1 class="fs-1">Profile Address</h1>
+        <p class="fs-5">
+            The system utilizes an API-based location feature to fetch the user's address based on their
+            browser's geolocation.
+        </p>
+        <hr>
+        <h1 class="fs-1">Connect with Us</h1>
+        <ul>
+            <li><strong>Instagram:</strong> <a class="btn badge text-bg-secondary " href="https://www.instagram.com/itsmohit.codes/">Instagram</a>
+            </li>
+            <li><strong>YouTube:</strong> <a class="btn badge text-bg-secondary " href="https://www.youtube.com/@itsmohitcodes">YouTube
+                    Channel</a></li>
+            <li><strong>GitHub:</strong> <a class="btn badge text-bg-secondary " href="https://github.com/mohitprajapat2001">GitHub Repository</a></li>
+        </ul>
+        <hr>
+        <h1 class="fs-1">Technologies Used</h1>
+        <ul>
+            <li>Django Framework</li>
+            <li>Bootstrap CSS Framework</li>
+            <li>Celery for asynchronous task execution</li>
+            <li>PostgreSQL Database</li>
+            <li>HTML, CSS, JavaScript</li>
+        </ul>
+        <hr>
+        <h1 class="fs-1">Conclusion</h1>
+        <p class="fs-5">
+            Cafee83 is an open-source project aimed at providing a comprehensive solution for managing cyber
+            cafes efficiently. It incorporates modern technologies and follows best practices in software
+            development.
+        </p>
+        <hr>
+    </div>
+</div>
+
+{% endblock %}
