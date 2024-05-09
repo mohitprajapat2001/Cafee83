@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.http.response import HttpResponse as HttpResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.contrib.auth.models import Group
 from django.views.generic import View, ListView, FormView, UpdateView, TemplateView
 from .models import Transaction, Computer, Customer
@@ -68,8 +68,8 @@ class Users(ListView):
         return PermissionRequired.as_view()(request)
 
 
-class Staff(ListView):
-    template_name = constant.STAFF_HTML
+class Groups(ListView):
+    template_name = constant.GROUPS_HTML
     model = Customer
     context_object_name = "customers"
     ordering = "id"
@@ -78,6 +78,10 @@ class Staff(ListView):
         if not request.user.is_superuser:
             return PermissionRequired.as_view()(request)
         return super().dispatch(request)
+
+
+class Info(TemplateView):
+    template_name = constant.INFO_HTML
 
 
 class UserGroupEdit(View):
@@ -94,8 +98,16 @@ class UserGroupEdit(View):
         for group in groups:
             group = Group.objects.get(name=group)
             user.groups.add(group)
-        return redirect("/home/staff")
+        return redirect("/home/groups")
 
 
 class PermissionRequired(TemplateView):
     template_name = constant.PERMISSION_REQUIRED_HTML
+
+
+def error_404(request, exception):
+    return render(request, constant.ERROR_HTML_404, status=404)
+
+
+def error_500(request):
+    return render(request, constant.ERROR_HTML_500, status=500)

@@ -9,6 +9,7 @@ urlpatterns = [
     path("computerform/", views.ComputerForm.as_view(), name="computers-form"),
     path("transactions/", views.Transactions.as_view(), name="transactions"),
     path("users/", views.Users.as_view(), name="users"),
-    path("staff/", views.Staff.as_view(), name="staff"),
-    path("usergroupedit/", views.UserGroupEdit.as_view(), name="user group edit"),
+    path("groups/", views.Groups.as_view(), name="groups"),
+    path("info/", views.Info.as_view(), name="info"),
+    path("usergroupedit/", views.UserGroupEdit.as_view(), name="user_group_edit"),
 ]

@@ -67,7 +67,7 @@
 {% else %}
 <div class="alert alert-primary text-center" role="alert">
     <h1>No Active PC Sessions</h1>
-    <a class="btn btn-primary" href="/home/computers" role="button">Select Computer</a>
+    <a class="btn btn-primary" href="{% url 'computers' %}" role="button">Select Computer</a>
 </div>
 {% endif %}
 {% else %}
@@ -83,7 +83,7 @@
                     </h2>
                     <h3 class="h2 mb-2">Oops! You're Not Logged In.</h3>
                     <p class="mb-5">The page you are looking for Requied Login.</p>
-                    <a class="btn bsb-btn-5xl btn-dark rounded-pill px-5 fs-6 m-0" href="/accounts/login"
+                    <a class="btn bsb-btn-5xl btn-dark rounded-pill px-5 fs-6 m-0" href="{% url 'login' %}"
                         role="button">Back to
                         Login</a>
                 </div>

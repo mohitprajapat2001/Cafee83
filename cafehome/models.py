@@ -54,7 +54,7 @@ class Transaction(TimeStampedModel):
     computer = models.ForeignKey(
         Computer, on_delete=models.CASCADE, related_name="transactions"
     )
-    transaction_id = models.CharField(verbose_name="Transaction Id")
+    transaction_id = models.CharField(max_length=50, verbose_name="Transaction Id")
     transaction_amount = models.FloatField(verbose_name="Transaction Amount")
     transaction_status = models.CharField(
         verbose_name="Transaction Status", max_length=10
@@ -78,7 +78,7 @@ def update_computer_status(sender, instance, created, **kwargs):
         computer = instance.computer
         computer.status = 0
         computer.save()
-        activation_time = (timezone.now() + timedelta(minutes=1)) - timezone.now()
+        activation_time = (timezone.now() + timedelta(minutes=10)) - timezone.now()
         # tasks.activate_computer.apply_async(args=[computer.id], eta=activation_time)
         tasks.activate_computer.apply_async(
             args=[computer.id], countdown=activation_time.total_seconds()
