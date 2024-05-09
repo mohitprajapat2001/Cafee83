@@ -5,9 +5,9 @@ from django.forms import (
     TextInput,
     CharField,
     PasswordInput,
-    FileInput,
     NumberInput,
     SelectMultiple,
+    ClearableFileInput,
 )
 from .models import Customer
 from django.contrib.auth.models import Group
@@ -51,7 +51,7 @@ class UserUpdateForm(ModelForm):
         widgets = {}
         for field in fields:
             if field == "profile":
-                input_option = FileInput
+                input_option = ClearableFileInput
             elif field == "age" or field == "phone":
                 input_option = NumberInput
             else:
@@ -59,6 +59,15 @@ class UserUpdateForm(ModelForm):
             widgets[field] = input_option(
                 attrs={"class": f"form-control {field}-input"}
             )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["profile"].widget.attrs.update(
+            {
+                "accept": "image/*",
+                "max_size": "102400",
+            }
+        )
 
 
 class UpdateUserGroup(ModelForm):
