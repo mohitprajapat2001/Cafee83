@@ -19,3 +19,7 @@ PERMISSION_REQUIRED_HTML = "html/cafeehtml/permissionrequired.html"
 COMPUTER_URL = "/home/computers"
 LOGIN_URL = "/accounts/login"
 HOME_URL = "/home"
+
+# APIKEYS
+
+WEATHERAPI = "e6ed093031474d538f6101732240905"

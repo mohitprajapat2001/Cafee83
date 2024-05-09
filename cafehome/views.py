@@ -88,7 +88,7 @@ class UserGroupEdit(View):
         return super().dispatch(request)
 
     def post(self, request):
-        groups = request.POST.getlist("groupSelect") + ["Customer"]
+        groups = request.POST.getlist("groupSelect")
         user = Customer.objects.get(id=request.POST.get("customer_id"))
         user.groups.clear()
         for group in groups:

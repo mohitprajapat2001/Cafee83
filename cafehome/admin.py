@@ -27,6 +27,11 @@ class ComputerAdmin(admin.ModelAdmin):
     ordering = ["name"]
     search_fields = ["name"]
     list_filter = ["name", "ram", "status"]
+    actions = ["Active_Computers"]
+
+    @admin.action(description="Mark selected computers active")
+    def Active_Computers(self, request, queryset):
+        queryset.update(status=1)
 
 
 @admin.register(Transaction)

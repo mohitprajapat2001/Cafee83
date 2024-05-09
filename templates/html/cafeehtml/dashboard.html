@@ -44,7 +44,17 @@
                         <div class="d-flex justify-content-between total font-weight-bold mt-4 text-capitalize">
                             <span>Transaction Status</span>
                             <span>
-                                <strong>{{customer.transaction_status}}</strong>
+                                <strong>{{customer.computer.status}}</strong>
+                            </span>
+                        </div>
+                        <div class="d-flex justify-content-between total font-weight-bold mt-4 text-capitalize">
+                            <span>Session Status</span>
+                            <span>
+                                {% if customer.computer.status %}
+                                <strong class="text-danger">Expired</strong>
+                                {% else %}
+                                <strong class="text-info">Available</strong>
+                                {% endif %}
                             </span>
                         </div>
                     </div>

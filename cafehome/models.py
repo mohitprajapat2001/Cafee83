@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django_extensions.db.models import ActivatorModel, TimeStampedModel
-from cafehome.task import activate_computer
 from users.models import Customer
 import cafee83.choice as choice
 from cafee83 import choiceconstant
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from . import tasks
 from django.utils import timezone
 from datetime import timedelta
-from .task import activate_computer
 
 
 class Computer(ActivatorModel):
@@ -73,14 +72,14 @@ class Transaction(TimeStampedModel):
         ordering = ["-created"]
 
 
-# @receiver(post_save, sender=Transaction)
-# def update_computer_status(sender, instance, created, **kwargs):
-#     if created:
-#         computer = instance.computer
-#         computer.status = 0
-#         computer.save()
-
-#         activation_time = timezone.now() + timedelta(seconds=30)
-
-#         activation_time = timezone.now() + timedelta(hours=1)
-#         activate_computer.apply_async(args=[computer.id], eta=activation_time)
+@receiver(post_save, sender=Transaction)
+def update_computer_status(sender, instance, created, **kwargs):
+    if created:
+        computer = instance.computer
+        computer.status = 0
+        computer.save()
+        activation_time = (timezone.now() + timedelta(minutes=1)) - timezone.now()
+        # tasks.activate_computer.apply_async(args=[computer.id], eta=activation_time)
+        tasks.activate_computer.apply_async(
+            args=[computer.id], countdown=activation_time.total_seconds()
+        )

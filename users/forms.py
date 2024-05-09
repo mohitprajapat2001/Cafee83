@@ -20,16 +20,27 @@ class CustomerForm(ModelForm):
         widgets = {}
         for field in fields:
             widgets[field] = TextInput(
-                attrs={"class": "form-control", "required": "True"}
+                attrs={
+                    "class": "form-control",
+                    "required": "True",
+                    "placeholder": f"Choose {field}",
+                }
             )
 
 
 class LoginForm(Form):
     username = CharField(
-        required=True, max_length=30, widget=TextInput(attrs={"class": "form-control"})
+        required=True,
+        max_length=30,
+        widget=TextInput(
+            attrs={"class": "form-control", "placeholder": "Enter Login Username"}
+        ),
     )
     password = CharField(
-        required=True, widget=PasswordInput(attrs={"class": "form-control"})
+        required=True,
+        widget=PasswordInput(
+            attrs={"class": "form-control", "placeholder": "Enter Login Password"}
+        ),
     )
 
 
@@ -45,7 +56,9 @@ class UserUpdateForm(ModelForm):
                 input_option = NumberInput
             else:
                 input_option = TextInput
-            widgets[field] = input_option(attrs={"class": "form-control"})
+            widgets[field] = input_option(
+                attrs={"class": f"form-control {field}-input"}
+            )
 
 
 class UpdateUserGroup(ModelForm):

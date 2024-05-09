@@ -115,6 +115,7 @@
                             <div class="form-horizontal" role="form">
                                 {{form.as_p}}
                             </div>
+                            <button type="btn" class="btn btn-primary my-3" id="locationBtn">Choose Location</button>
                             <button type="submit" class="btn btn-primary my-3">Submit Details</button>
                         </div>
                     </div>
@@ -128,4 +129,8 @@
     </div>
 </div>
 <!-- Edit Profile Modal End -->
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/location.js' %}"></script>
 {% endblock %}
