@@ -7,5 +7,5 @@ from . import models
 def activate_computer(computer_id):
     computer = models.Computer.objects.get(id=computer_id)
     computer.status = 1
-    computer.save()
+    computer.save(update_fields=["status"])
     return f"Done Status Updated {computer} of ID {computer_id} with Status {computer.status}"

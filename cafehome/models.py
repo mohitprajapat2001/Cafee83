@@ -36,7 +36,7 @@ class Computer(ActivatorModel):
         default=choiceconstant.NVIDIA_GEFORCE_RTX_3060,
     )
     wifi = models.BooleanField(verbose_name="WiFi", default=True)
-    usage_price = models.IntegerField(default=0)
+    usage_price = models.IntegerField(default=10)
 
     def __str__(self):
         return self.name
@@ -77,7 +77,7 @@ def update_computer_status(sender, instance, created, **kwargs):
     if created:
         computer = instance.computer
         computer.status = 0
-        computer.save()
+        computer.save(update_fields=["status"])
         activation_time = (timezone.now() + timedelta(minutes=10)) - timezone.now()
         # tasks.activate_computer.apply_async(args=[computer.id], eta=activation_time)
         tasks.activate_computer.apply_async(
