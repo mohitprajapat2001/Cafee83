@@ -38,7 +38,7 @@ class ComputerForm(FormView):
     success_url = constant.COMPUTER_URL
 
     def dispatch(self, request):
-        if not request.user.groups.filter(name="Computer Editor").exists():
+        if not request.user.groups.filter(name=constant.COMPUTER_EDITOR).exists():
             return PermissionRequired.as_view()(request)
         return super().dispatch(request)
 
@@ -61,7 +61,7 @@ class Users(ListView):
 
     def dispatch(self, request):
         if (
-            request.user.groups.filter(name="Users View").exists()
+            request.user.groups.filter(name=constant.USER_VIEWER).exists()
             or request.user.is_superuser
         ):
             return super().dispatch(request)
@@ -92,12 +92,11 @@ class UserGroupEdit(View):
         return super().dispatch(request)
 
     def post(self, request):
-        groups = request.POST.getlist("groupSelect")
+        group_names = request.POST.getlist("groupSelect")
         user = Customer.objects.get(id=request.POST.get("customer_id"))
         user.groups.clear()
-        for group in groups:
-            group = Group.objects.get(name=group)
-            user.groups.add(group)
+        groups = Group.objects.filter(name__in=group_names)
+        user.groups.add(*groups)
         return redirect("/home/groups")
 
 

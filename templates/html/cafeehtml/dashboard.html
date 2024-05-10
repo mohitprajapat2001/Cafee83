@@ -8,6 +8,9 @@
 {% endblock %}
 
 {% block content %}
+<div class="alert alert-warning" role="alert">
+    Computer Sessions are Expire in 15 Minutes
+</div>
 {% if user.is_authenticated %}
 {% if customers %}
 <section class="row d-flex justify-content-around">
@@ -26,7 +29,7 @@
                         </div>
                         <div>
                             <div class="d-flex justify-content-between">
-                                <span>Ram</span><span> {{customer.computer.ram}}GB</span>
+                                <span>Ram</span><span> {{customer.computer.ram}}</span>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <span>Processor</span><span>{{customer.computer.processor}}</span>

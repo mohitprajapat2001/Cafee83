@@ -5,6 +5,10 @@
 {% block layoutTitle %}Payments{% endblock %}
 
 {% block content %}
+<div class="alert alert-primary" role="alert">
+    Payment Username = cafee83@user.com
+     Password = 12345678
+ </div>
 {% csrf_token %}
 <div class="row">
     <dt class="col-3">Computer Name:</dt>
@@ -23,8 +27,13 @@
     <dd class="col-9">{{computer.usage_price}} $</dd>
 
     <hr>
-
+    {% if computer.status %}
     <div class="d-flex justify-content-center" id="paypal-button-container"></div>
+{% else %}
+<div class="alert alert-primary" role="alert">
+    Computer Session Not Available
+ </div>
+{% endif %}
 </div>
 {% endblock %}
 

@@ -141,6 +141,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # CELERY SETTINGS
 CELERY_TIMEZONE = "Asia/Kolkata"
-CELERY_BROKER_URL = "redis://127.0.0.1:6379"
+CELERY_BROKER_URL = "redis://default:a98t14FfJCfAC05tTjB2bwvpsJSfq43n@redis-10158.c301.ap-south-1-1.ec2.redns.redis-cloud.com:10158"
 CELERY_RESULT_BACKEND = "django-db"
 CELERY_RESULT_EXTENDED = True
