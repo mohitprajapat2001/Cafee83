@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-import dj_database_url
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -30,8 +29,7 @@ SECRET_KEY = "django-insecure-6qk()v21@j3ltfvgg5#h40w3o!337_*-*3v7xj1%0xque7kxa3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -42,12 +40,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "cafehome.apps.CafehomeConfig",
+    "users.apps.UsersConfig",
+    "payments.apps.PaymentsConfig",
     "schema_graph",
     "phonenumber_field",
     "django_extensions",
-    "cafehome",
-    "users",
-    "payments",
+    "django_celery_results",
+    "django_celery_beat",
 ]
 
 MIDDLEWARE = [
@@ -87,19 +87,10 @@ WSGI_APPLICATION = "cafee83.wsgi.application"
 
 DATABASES = {
     "default": {
-        "NAME": "cafee83",
-        "ENGINE": "django.db.backends.postgresql",
-        "USER": "postgres",
-        "PASSWORD": "1234",
-        "HOST": "localhost",
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
     }
 }
-
-# DATABASES = {}
-
-# DATABASES["default"] = dj_database_url.parse(
-#     "postgres://postgres:1234@localhost/cafee83"
-# )
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -137,6 +128,7 @@ USE_TZ = False
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "templates/static")]
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -148,8 +140,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 # CELERY SETTINGS
-
-CELERY_BROKER_URL = "redis://127.0.0.1:6379"
-CELERY_ACCEPT_CONTENT = ["application/json"]
-CELERY_RESULT_SERIALIZER = "json"
-CELERY_TASK_SERIALIZER = "json"
+CELERY_TIMEZONE = "Asia/Kolkata"
+CELERY_BROKER_URL = "redis://default:a98t14FfJCfAC05tTjB2bwvpsJSfq43n@redis-10158.c301.ap-south-1-1.ec2.redns.redis-cloud.com:10158"
+CELERY_RESULT_BACKEND = "django-db"
+CELERY_RESULT_EXTENDED = True

@@ -16,15 +16,3 @@ input.addEventListener("keyup", function () {
     }
 
 });
-
-staffViewBtn.addEventListener('click', () => {
-    var rows = tableBody.getElementsByTagName("tr");
-    var staffs = document.getElementsByClassName("staffStatus")
-    for (var i = 0; i < rows.length; i++) {
-        row = rows[i]
-        staff = staffs[i]
-        if (staff.innerText.toLowerCase() == "false") {
-            row.style.display = (row.style.display === "none" || row.style.display === "") ? "table-row" : "none";
-        }
-    }
-})

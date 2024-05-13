@@ -8,6 +8,9 @@
 {% endblock %}
 
 {% block content %}
+<div class="alert alert-warning" role="alert">
+    Computer Sessions are Expire in 15 Minutes
+</div>
 {% if user.is_authenticated %}
 {% if customers %}
 <section class="row d-flex justify-content-around">
@@ -26,7 +29,7 @@
                         </div>
                         <div>
                             <div class="d-flex justify-content-between">
-                                <span>Ram</span><span> {{customer.computer.ram}}GB</span>
+                                <span>Ram</span><span> {{customer.computer.ram}}</span>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <span>Processor</span><span>{{customer.computer.processor}}</span>
@@ -44,7 +47,17 @@
                         <div class="d-flex justify-content-between total font-weight-bold mt-4 text-capitalize">
                             <span>Transaction Status</span>
                             <span>
-                                <strong>{{customer.transaction_status}}</strong>
+                                <strong>{{customer.computer.status}}</strong>
+                            </span>
+                        </div>
+                        <div class="d-flex justify-content-between total font-weight-bold mt-4 text-capitalize">
+                            <span>Session Status</span>
+                            <span>
+                                {% if customer.computer.status %}
+                                <strong class="text-danger">Expired</strong>
+                                {% else %}
+                                <strong class="text-info">Available</strong>
+                                {% endif %}
                             </span>
                         </div>
                     </div>
@@ -57,7 +70,7 @@
 {% else %}
 <div class="alert alert-primary text-center" role="alert">
     <h1>No Active PC Sessions</h1>
-    <a class="btn btn-primary" href="/home/computers" role="button">Select Computer</a>
+    <a class="btn btn-primary" href="{% url 'computers' %}" role="button">Select Computer</a>
 </div>
 {% endif %}
 {% else %}
@@ -73,7 +86,7 @@
                     </h2>
                     <h3 class="h2 mb-2">Oops! You're Not Logged In.</h3>
                     <p class="mb-5">The page you are looking for Requied Login.</p>
-                    <a class="btn bsb-btn-5xl btn-dark rounded-pill px-5 fs-6 m-0" href="/accounts/login"
+                    <a class="btn bsb-btn-5xl btn-dark rounded-pill px-5 fs-6 m-0" href="{% url 'login' %}"
                         role="button">Back to
                         Login</a>
                 </div>

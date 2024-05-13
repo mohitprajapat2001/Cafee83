@@ -9,6 +9,7 @@
     <thead>
         <tr>
             <th scope="col">Transaction ID</th>
+            <th scope="col">Payer Name</th>
             <th scope="col">Customer</th>
             <th scope="col">Computer</th>
             <th scope="col">Transaction Date</th>
@@ -17,21 +18,23 @@
     </thead>
     <tbody class="text-capitalize">
         {% for transaction in transactions %}
-        {% if request.user.is_staff %}
+        {% if perms.cafehome.view_transaction %}
         <tr>
             <th scope="row">{{transaction.id}}</th>
             <td>{{transaction.payer_username}}</td>
             <td>{{transaction.customer}}</td>
+            <td>{{transaction.computer}}</td>
             <td>{{transaction.created}}</td>
             <td>{{transaction.transaction_amount}}</td>
         </tr>
         {% else %}
-        {% if transaction.customer_details.id == request.user.id %}
+        {% if transaction.customer.id == request.user.id %}
         <tr>
             <th scope="row">{{transaction.id}}</th>
             <td>{{transaction.payer_username}}</td>
-            <td>{{transaction.customer.name}}</td>
-            <td>{{transaction.transaction_date}}</td>
+            <td>{{transaction.customer}}</td>
+            <td>{{transaction.computer}}</td>
+            <td>{{transaction.created}}</td>
             <td>{{transaction.transaction_amount}}</td>
         </tr>
         {% endif %}

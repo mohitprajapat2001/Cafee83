@@ -1,33 +1,5 @@
-2 column grid layout with text inputs for the first and last names
-<div class="row">
-    <div class="col-md-6 mb-4">
-        <div data-mdb-input-init class="form-outline">
-            <input type="text" id="form3Example1" class="form-control" name="first_name" />
-            <label class="form-label" for="form3Example1">First name</label>
-        </div>
-    </div>
-    <div class="col-md-6 mb-4">
-        <div data-mdb-input-init class="form-outline">
-            <input type="text" id="form3Example2" class="form-control" name="last_name" />
-            <label class="form-label" for="form3Example2">Last name</label>
-        </div>
-    </div>
-</div>
+Test {{result1.id}}
 
-<!-- Email input -->
-<div data-mdb-input-init class="form-outline mb-4">
-    <input type="email" id="form3Example3" class="form-control" name="email" />
-    <label class="form-label" for="form3Example3">Email address</label>
-</div>
-
-<!-- Password input -->
-<div data-mdb-input-init class="form-outline mb-4">
-    <input type="password" id="form3Example4" class="form-control" name="passowrd1" />
-    <label class="form-label" for="form3Example4">Password</label>
-</div>
-
-<!-- Confirm Password input -->
-<div data-mdb-input-init class="form-outline mb-4">
-    <input type="password" id="form3Example4" class="form-control" name="passowrd2" />
-    <label class="form-label" for="form3Example4">Confirm Password</label>
-</div>
+{% if result1.id %}
+<a href="/home/test_result/{{result1.id}}">Result</a>
+{% endif %}

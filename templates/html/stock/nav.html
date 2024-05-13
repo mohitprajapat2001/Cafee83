@@ -7,7 +7,7 @@
     <div class="container-fluid">
 
         <!-- Brand -->
-        <a class="navbar-brand font-monospace fs-2 fw-bold" href="/home">
+        <a class="navbar-brand font-monospace fs-2 fw-bold" href="{% url 'home' %}">
             Cafee'83
         </a>
         <!-- Search form -->
@@ -22,14 +22,13 @@
 
             <!-- Icon -->
             <li class="nav-item">
-                <a class="nav-link me-3 me-lg-0 {% if request.path == '/home/' %}active{% endif %}"
-                    href="/home">
+                <a class="nav-link me-3 me-lg-0 {% if request.path == '/home/' %}active{% endif %}" href="{% url 'home' %}">
                     <i class="fas fa-home"></i>
                 </a>
             </li>
             <!-- Icon -->
             <li class="nav-item me-3 me-lg-0">
-                <a class="nav-link {% if request.path == '/home/info/' %}active{% endif %}" href="/home/info">
+                <a class="nav-link {% if request.path == '/home/info/' %}active{% endif %}" href="{% url 'info' %}">
                     <i class="fas fa-circle-info"></i>
                 </a>
             </li>
@@ -53,6 +52,11 @@
             </li>
             {% if user.is_authenticated %}
             <!-- Avatar -->
+            {% if user.is_superuser %}
+            <li class="nav-item dropdown">
+                <a class="btn btn-primary" href="/admin" role="button">Admin</a>
+            </li>
+            {% endif %}
             <li class="nav-item dropdown">
                 <button class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center btn btn-tertiary"
                     type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -60,12 +64,12 @@
                         height="22" alt="" loading="lazy" />
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="avtarDropDown">
-                    <li><a class="dropdown-item" href="/home/profile/{{user.pk}}">My profile</a></li>
-                    <li><a class="dropdown-item" href="/accounts/logout">Logout</a></li>
+                    <li><a class="dropdown-item" href="{% url 'profile' request.user.pk %}">My profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                 </ul>
                 {% else %}
             <li class="nav-item dropdown">
-                <a class="btn btn-primary" href="/accounts/login" role="button">Login</a>
+                <a class="btn btn-primary" href="{% url 'login' %}" role="button">Login</a>
             </li>
             {% endif %}
             </li>

@@ -5,10 +5,12 @@ from django.forms import (
     TextInput,
     CharField,
     PasswordInput,
-    FileInput,
     NumberInput,
+    SelectMultiple,
+    ClearableFileInput,
 )
 from .models import Customer
+from django.contrib.auth.models import Group
 
 
 class CustomerForm(ModelForm):
@@ -18,16 +20,27 @@ class CustomerForm(ModelForm):
         widgets = {}
         for field in fields:
             widgets[field] = TextInput(
-                attrs={"class": "form-control", "required": "True"}
+                attrs={
+                    "class": "form-control",
+                    "required": "True",
+                    "placeholder": f"Choose {field}",
+                }
             )
 
 
 class LoginForm(Form):
     username = CharField(
-        required=True, max_length=30, widget=TextInput(attrs={"class": "form-control"})
+        required=True,
+        max_length=30,
+        widget=TextInput(
+            attrs={"class": "form-control", "placeholder": "Enter Login Username"}
+        ),
     )
     password = CharField(
-        required=True, widget=PasswordInput(attrs={"class": "form-control"})
+        required=True,
+        widget=PasswordInput(
+            attrs={"class": "form-control", "placeholder": "Enter Login Password"}
+        ),
     )
 
 
@@ -38,9 +51,31 @@ class UserUpdateForm(ModelForm):
         widgets = {}
         for field in fields:
             if field == "profile":
-                input_option = FileInput
+                input_option = ClearableFileInput
             elif field == "age" or field == "phone":
                 input_option = NumberInput
             else:
                 input_option = TextInput
-            widgets[field] = input_option(attrs={"class": "form-control"})
+            widgets[field] = input_option(
+                attrs={"class": f"form-control {field}-input"}
+            )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["profile"].widget.attrs.update(
+            {
+                "accept": "image/*",
+                "max_size": "102400",
+            }
+        )
+
+
+class UpdateUserGroup(ModelForm):
+    class Meta:
+        model = Customer
+        fields = ["groups"]
+        widgets = {"groups": SelectMultiple(attrs={"class": "form-control"})}
+
+    def __init__(self, *args, **kwargs):
+        super(UserUpdateForm, self).__init__(*args, **kwargs)
+        self.fields["groups"].queryset = Group.objects.all()
