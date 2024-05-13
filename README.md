@@ -39,18 +39,26 @@ The system utilizes an API-based location feature to fetch the user's address ba
 To install Cafee83 and set up Celery with Redis, follow these steps:
 
 1. **Clone the repository**:
+```
 git clone https://github.com/mohitprajapat2001/Cafee83.git
+```
 
 2. **Navigate to the project directory**:
+```
 cd Cafee83
+```
 
 3. **Create and activate a virtual environment** (if not already activated):
+```
 python -m venv venv
 source venv/bin/activate # For Linux/macOS
 venv\Scripts\activate # For Windows
+```
 
 4. **Install dependencies**:
+```
 pip install -r requirements.txt
+```
 
 5. **Install Redis**:
 - On Linux:
@@ -75,8 +83,9 @@ pip install -r requirements.txt
 
 7. **Start Celery**:
 In a new terminal or console, ensure that you are in the same virtual environment and project directory. Then run:
+```
 celery -A Cafee83 worker -l info --pool=solo
-
+```
 
 8. **Run Django Development Server**:
 In the original terminal or console (where your virtual environment is activated), navigate to the project directory and run:
