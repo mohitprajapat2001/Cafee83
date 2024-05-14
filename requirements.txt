@@ -27,7 +27,6 @@ django-glrm==1.1.3
 django-login-required-middleware==0.9.0
 django-phone-field==1.8.1
 django-phonenumber-field==7.3.0
-django-polls @ file:///E:/Django/django-polls/dist/django-polls-0.1.tar.gz#sha256=64efadade17970acdfbcba832282efcf634f661ced27e9d2c8a464861867a31f
 django-schema-graph==3.1.0
 django-timezone-field==6.1.0
 exceptiongroup==1.2.0
