@@ -1,0 +1,20 @@
+{% block sidebar-items %}
+<div class="position-sticky">
+    <div class="list-group list-group-flush mx-3 mt-4">
+        <a class="btn btn-outline-primary {% if request.path == '/home/' %}active{% endif %} my-1"
+            href="{% url 'home' %}" role="button">Dashboard</a>
+        <a class="btn btn-outline-primary {% if request.path == '/home/computers/' %}active{% endif %} my-1"
+            href="{% url 'computers' %}" role="button">Computers</a>
+        <a class="btn btn-outline-primary {% if request.path == '/home/transactions/' %}active{% endif %} my-1"
+            href="{% url 'transactions' %}" role="button">Tranactions</a>
+        {% if request.user.is_staff %}
+        <a class="btn btn-outline-primary {% if request.path == '/home/users/' %}active{% endif %} my-1"
+            href="{% url 'users' %}" role="button">Users</a>
+        {% if request.user.is_superuser %}
+        <a class="btn btn-outline-primary {% if request.path == '/home/staff/' %}active{% endif %} my-1"
+            href="{% url 'groups' %}" role="button">Groups</a>
+        {% endif %}
+        {% endif %}
+    </div>
+</div>
+{%  endblock %}

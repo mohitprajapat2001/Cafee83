@@ -22,7 +22,8 @@
 
             <!-- Icon -->
             <li class="nav-item">
-                <a class="nav-link me-3 me-lg-0 {% if request.path == '/home/' %}active{% endif %}" href="{% url 'home' %}">
+                <a class="nav-link me-3 me-lg-0 {% if request.path == '/home/' %}active{% endif %}"
+                    href="{% url 'home' %}">
                     <i class="fas fa-home"></i>
                 </a>
             </li>
@@ -52,13 +53,8 @@
             </li>
             {% if user.is_authenticated %}
             <!-- Avatar -->
-            {% if user.is_superuser %}
             <li class="nav-item dropdown">
-                <a class="btn btn-primary" href="/admin" role="button">Admin</a>
-            </li>
-            {% endif %}
-            <li class="nav-item dropdown">
-                <button class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center btn btn-tertiary"
+                <button class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center btn btn-tertiary px-2"
                     type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg" class="rounded-circle"
                         height="22" alt="" loading="lazy" />
@@ -67,11 +63,23 @@
                     <li><a class="dropdown-item" href="{% url 'profile' request.user.pk %}">My profile</a></li>
                     <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                 </ul>
-                {% else %}
+                {% if user.is_superuser %}
+            <li class="nav-item dropdown">
+                <a class="btn btn-primary" href="/admin" role="button">Admin</a>
+            </li>
+            {% endif %}
+            {% else %}
             <li class="nav-item dropdown">
                 <a class="btn btn-primary" href="{% url 'login' %}" role="button">Login</a>
             </li>
+
             {% endif %}
+            </li>
+            <li>
+                <button class="btn btn-primary mx-2 d-lg-none" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                    <i class="fa fa-sliders"></i>
+                </button>
             </li>
         </ul>
     </div>
@@ -79,4 +87,18 @@
 </nav>
 <!-- Navbar -->
 <!--Main Navigation-->
+
+
+
+<!-- OffCavas for Sidebar -->
+<div class="offcanvas offcanvas-start" tabindex="0" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body bg-tertiary">
+        {% include 'html/stock/sidebar-items.html' %}
+        {% block sidebar-items %}{% endblock %}
+    </div>
+</div>
+<!-- End Offcanava -->
 {% endblock %}
