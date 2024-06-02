@@ -78,7 +78,7 @@ def update_computer_status(sender, instance, created, **kwargs):
         computer = instance.computer
         computer.status = 0
         computer.save(update_fields=["status"])
-        activation_time = (timezone.now() + timedelta(minutes=10)) - timezone.now()
+        activation_time = (timezone.now() + timedelta(seconds=60)) - timezone.now()
         # tasks.activate_computer.apply_async(args=[computer.id], eta=activation_time)
         tasks.activate_computer.apply_async(
             args=[computer.id], countdown=activation_time.total_seconds()
